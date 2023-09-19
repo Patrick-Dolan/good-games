@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function NavBar() {
   return (
     <>
@@ -7,34 +9,22 @@ function NavBar() {
             <h1>GG</h1>
             <ul className="nav__list">
               <li>
-                <a
-                  href="#"
-                  className="nav__link"
-                  onClick={() => alert("Home Clicked")}
-                >
+                <Link className="nav__link" to={"/"}>
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav__list-item">
-                <a
-                  href="#"
-                  className="nav__link"
-                  onClick={() => alert("Games Clicked")}
-                >
+                <Link className="nav__link" to={"/games"}>
                   Games
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
           <ul className="nav__list">
             <li className="nav__list-item">
-              <a
-                href="#"
-                className="nav__link nav__link-button"
-                onClick={() => alert("Account Clicked")}
-              >
+              <Link className="nav__link nav__link-button" to={"/account"}>
                 Account
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

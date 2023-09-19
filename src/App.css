@@ -26,7 +26,7 @@
 body {
   font-family: "Libre Franklin", sans-serif;
   background-color: #0b0c10;
-  color: #c5c6c7;
+  color: white;
   margin: 0;
   padding: 0;
 }
@@ -80,7 +80,7 @@ nav {
 
 .nav__link {
   text-decoration: none;
-  color: #c5c6c7;
+  color: white;
   font-weight: 500;
 }
 
@@ -91,7 +91,7 @@ nav {
 
 .nav__link-button {
   display: inline-block;
-  background: #ecf2eb;
+  background-color: #ecf2eb;
   color: #0b0c10;
   padding: 0.5em 0.5em;
   border-radius: 1em;
