@@ -59,6 +59,10 @@ nav {
   display: flex;
 }
 
+.nav__logo {
+  margin: 0;
+}
+
 .nav__left {
   display: flex;
   gap: 1em;
@@ -71,17 +75,19 @@ nav {
   align-items: center;
   gap: 0.5em;
   padding-left: 0;
+  margin: 0.5em 0;
 }
 
 .nav__list-item {
   text-align: center;
   padding: 0.25em;
+  font-size: 0.8rem;
 }
 
 .nav__link {
   text-decoration: none;
   color: white;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .nav__link:hover,
@@ -95,4 +101,5 @@ nav {
   color: #0b0c10;
   padding: 0.5em 0.5em;
   border-radius: 1em;
+  font-weight: bold;
 }

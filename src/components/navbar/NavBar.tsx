@@ -6,9 +6,9 @@ function NavBar() {
       <header>
         <nav className="container row">
           <div className="nav__left">
-            <h1>GG</h1>
+            <h1 className="nav__logo">GG</h1>
             <ul className="nav__list">
-              <li>
+              <li className="nav__list-item">
                 <Link className="nav__link" to={"/"}>
                   Home
                 </Link>
