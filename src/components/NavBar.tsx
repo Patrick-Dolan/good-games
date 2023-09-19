@@ -3,7 +3,7 @@ function NavBar() {
     <>
       <header>
         <nav className="container row">
-          <div className="flex">
+          <div className="nav__left">
             <h1>GG</h1>
             <ul className="nav__list">
               <li>

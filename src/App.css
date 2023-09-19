@@ -35,11 +35,6 @@ img {
   max-width: 100%;
 }
 
-.flex {
-  display: flex;
-  gap: 1em;
-}
-
 .container {
   width: 90%;
   margin: 0 auto;
@@ -62,6 +57,12 @@ nav {
   padding: 0;
   text-transform: uppercase;
   display: flex;
+}
+
+.nav__left {
+  display: flex;
+  gap: 1em;
+  align-items: center;
 }
 
 .nav__list {
