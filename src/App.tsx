@@ -1,10 +1,16 @@
 import "./App.css";
-import NavBar from "./components/NavBar";
+import Account from "./components/account/Account";
+import Games from "./components/games/Games";
+import Home from "./components/home/Home";
+import NavBar from "./components/navbar/NavBar";
 
 function App() {
   return (
     <>
       <NavBar />
+      <Home />
+      <Games />
+      <Account />
     </>
   );
 }
