@@ -4,6 +4,17 @@
   Fonts
   --------
   font-family: 'Libre Franklin', sans-serif;
+
+
+  Colors
+  --------
+  background-color: #0b0c10;
+  surface color #121212
+  color: #c5c6c7;
+  primary color #66fd7d
+  secondary color #ecf2eb
+  accent color #269A19
+
 */
 
 *,
@@ -14,18 +25,73 @@
 
 body {
   font-family: "Libre Franklin", sans-serif;
+  background-color: #0b0c10;
+  color: #c5c6c7;
+  margin: 0;
+  padding: 0;
 }
 
 img {
   max-width: 100%;
 }
 
-h1 {
-  font-weight: 500;
+.flex {
+  display: flex;
+  gap: 1em;
 }
 
 .container {
   width: 90%;
   margin: 0 auto;
   max-width: 1000px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Navbar */
+
+header {
+  background-color: #121212;
+}
+
+nav {
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  display: flex;
+}
+
+.nav__list {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-left: 0;
+}
+
+.nav__list-item {
+  text-align: center;
+  padding: 0.25em;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: #c5c6c7;
+  font-weight: 500;
+}
+
+.nav__link:hover,
+.nav__link:focus {
+  opacity: 0.75;
+}
+
+.nav__link-button {
+  display: inline-block;
+  background: #ecf2eb;
+  color: #0b0c10;
+  padding: 0.5em 0.5em;
+  border-radius: 1em;
 }
