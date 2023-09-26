@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <header>
+    <header className="elevation-2 shadow">
       <nav className="container row">
         <div className="nav__left">
           <h1 className="nav__logo">GG</h1>
