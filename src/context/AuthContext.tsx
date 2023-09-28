@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       if (currentUser?.uid) {
         setUser(currentUser);
       }
+      console.log(currentUser);
     });
 
     return () => {
@@ -45,7 +46,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     };
   }, []);
 
-  const registerUser = (email: string, password: string) => {
+  const registerUser = async (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -54,6 +55,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const logout = async () => {
+    setUser(null);
     return signOut(auth);
   };
 
