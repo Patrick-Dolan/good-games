@@ -6,11 +6,20 @@ interface Props {
   message: string;
   type: string;
 }
+// IMPORTANT
+//  - When using this Toast component the following code needs to go in the parent 
+// ==========================================================================================
+//   const [showToast, setShowToast] = useState(false);
+//   const [toastMessage, setToastMessage] = useState("Message that component needs shown.")
+
+//   const handleCloseToast = (): void => {
+//     setShowToast(false);
+//   }
+// ==========================================================================================
 
 function Toast({ show, onCloseToast, message, type }: Props) {
-
-const [toastTypeClasses, setToastTypeClasses] = useState("");
-const [toastButtonTypeClasses, setToastButtonTypeClasses] = useState("");
+  const [toastTypeClasses, setToastTypeClasses] = useState("");
+  const [toastButtonTypeClasses, setToastButtonTypeClasses] = useState("");
 
   useEffect(() => {
     if (show) {
