@@ -38,6 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       if (currentUser?.uid) {
         setUser(currentUser);
       }
+      // TODO Remove console log when done testing conditionals based on user logged in
       console.log(currentUser);
     });
 
