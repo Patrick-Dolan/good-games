@@ -1,18 +1,26 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UserAuth } from '../../context/AuthContext';
+import { useFirebaseAuth } from '../../context/AuthContext';
 
 interface Props {
   children: ReactNode;
+  handleUnauthorizedAccess: () => void
 }
 
-function ProtectedRoute({ children }: Props) {
-  const { user } = UserAuth();
-  
+function ProtectedRoute({ children, handleUnauthorizedAccess }: Props) {
+  const { user } = useFirebaseAuth();
+
+  useEffect(() => {
+    if (!user) {
+      handleUnauthorizedAccess();
+    }
+  }, [user, handleUnauthorizedAccess])
+
   if (!user) {
-    return <Navigate to="/account/sign-in" />;
+    return <Navigate to="/" />;
+  } else {
+    return children;
   }
-  return children;
 }
 
 export default ProtectedRoute;
