@@ -16,6 +16,7 @@ import { auth } from "./../../firebase";
 
 interface User {
   uid: string;
+  email: string | null;
 }
 
 interface UserContextProps {
