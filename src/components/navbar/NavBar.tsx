@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import { useFirebaseAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
+  const { user, logout } = useFirebaseAuth();
+  const navigate = useNavigate();
+
+  const handleUserLogout = async (): Promise<void> => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (e) {
+      console.log((e as Error).message);
+    }
+  }
+
   return (
     <header className="elevation-2 shadow">
       <nav className="container row">
@@ -19,13 +33,37 @@ function NavBar() {
             </li>
           </ul>
         </div>
-        <ul className="nav__list">
-          <li className="nav__list-item">
-            <Link className="nav__link nav__link-button" to={"/account"}>
-              Account
-            </Link>
-          </li>
-        </ul>
+          {user 
+            ? (
+              <ul className="nav__list">
+                <li className="nav__list-item">
+                  <Link className="nav__link" to={"/account/"}>
+                    Account
+                  </Link>
+                </li>
+                  <li className="nav__list-item">
+                    <Link className="nav__link nav__link-button" onClick={handleUserLogout} to={"/"}>
+                      Logout
+                    </Link>
+                  </li>
+              </ul>
+            )
+            : (
+              <ul className="nav__list">
+                <li className="nav__list-item">
+                  <Link className="nav__link" to={"/account/sign-in"}>
+                    Sign in
+                  </Link>
+                </li>
+                <li className="nav__list-item">
+                  <Link className="nav__link nav__link-button" to={"/account/new"}>
+                    Sign up
+                  </Link>
+                </li>
+              </ul>
+            )
+          }
+          
       </nav>
     </header>
   );
