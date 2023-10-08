@@ -28,9 +28,7 @@ interface UserContextProps {
 
 export const UserContext = createContext<UserContextProps | null>(null);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -69,7 +67,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-export const UserAuth = () => {
+export const useFirebaseAuth = () => {
   const contextValue = useContext(UserContext);
   if (contextValue === null) {
     throw new Error('UserAuth must be used within a UserContextProvider');
