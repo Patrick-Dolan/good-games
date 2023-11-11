@@ -1,14 +1,12 @@
-import RegisterAccount from "./RegisterAccount";
-import SignIn from "./SignIn";
+import { useFirebaseAuth } from "../../context/AuthContext";
 
 function Account() {
+  const { user } = useFirebaseAuth();
+
   return (
-    <>
-      {true
-        ? <RegisterAccount />
-        : <SignIn />
-      }
-    </>
+    <div className="container">
+      <h3>Email: {user?.email}</h3>
+    </div>
   );
 }
 
