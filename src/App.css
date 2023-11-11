@@ -5,7 +5,6 @@
   --------
   font-family: 'Libre Franklin', sans-serif;
 
-
   Colors
   --------
   background-color: #0b0c10;
@@ -17,6 +16,8 @@
 
 */
 
+/* TODO add var() method for colors with Root */
+
 *,
 *:before,
 *:after {
@@ -25,7 +26,7 @@
 
 body {
   font-family: "Libre Franklin", sans-serif;
-  background-color: #0b0c10;
+  background-color: #121212;
   color: white;
   margin: 0;
   padding: 0;
@@ -33,6 +34,22 @@ body {
 
 img {
   max-width: 100%;
+}
+
+button {
+  background-color: #269A19;
+  color: white;
+  letter-spacing: .1em;
+  border-color: #66fd7d;
+}
+
+button:hover,
+button:focus {
+  opacity: 0.75;
+}
+
+h1, h2, h3, h4, h5 {
+  letter-spacing: .08em;
 }
 
 .container {
@@ -46,10 +63,56 @@ img {
   justify-content: space-between;
 }
 
+.mt-1 {
+  margin-top: 1.5em;
+}
+
+/* Surfaces */
+
+.surface {
+  height: 100%;
+  width: 100%;
+  border-radius: .5em;
+  border: 2px rgba(128,128,128, .1) solid;
+}
+
+.surface-container {
+  width: 90%;
+  margin: 1em auto;
+  padding: .5em 0;
+}
+
+@media (min-width: 600px) {
+  .surface__auth {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .surface__auth {
+    max-width: 40%;
+    margin: 0 auto;
+  }
+}
+
+.elevation-1 {
+  background-color: rgba(255, 255, 255, .05);
+}
+
+.elevation-2 {
+  background-color: rgba(255, 255, 255, .11);
+}
+
+.shadow {
+  box-shadow: 0 0 .5em .2em rgba(0, 0, 0, .2);
+}
+
 /* Navbar */
 
 header {
   background-color: #121212;
+  margin-bottom: 1.5em;
 }
 
 nav {
@@ -102,4 +165,122 @@ nav {
   padding: 0.5em 0.5em;
   border-radius: 1em;
   font-weight: bold;
+}
+
+/* Form Styling */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 2em 0;
+}
+
+label {
+  padding-bottom: .25em;
+}
+
+input {
+  min-height: 3em;
+  border-radius: .45em;
+  padding: 1em;
+}
+
+.form__group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__button {
+  min-height: 3.5em;
+  border-radius: .5em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Toast */
+
+.hidden {
+  display: none;
+}
+
+.toast {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  min-width: 12em;
+  border-radius: .5em;
+  z-index: 10;
+}
+
+.toast-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: .25em 0;
+}
+
+.toast-error {
+  background-color: #9C2B2E;
+}
+
+.toast-success {
+  background-color: #269A19;
+}
+
+.toast-info {
+  background-color: #404040;
+}
+
+.toast-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: .05em;
+  margin: 0 0;
+  align-self: center;
+}
+
+.toast-message {
+  margin: 0 0;
+  padding: .25em 0;
+}
+
+.toast__hr {
+  margin: 0 0;
+}
+
+.toast__button {
+  border: none;
+  height: 2em;
+  align-self: center;
+  margin: 0 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: large;
+  max-height: 1.75em;
+}
+
+.toast__button-error {
+  background-color: #9C2B2E;
+}
+
+.toast__button-success {
+  background-color: #269A19;
+}
+
+.toast__button-info {
+  background-color: #404040;
+}
+
+@media (min-width: 600px) {
+  .toast {
+    max-width: 45%;
+    bottom: 2%;
+    left: 2%;
+  }
+}
+
+@media (min-width: 1000px) {
+  .toast {
+    max-width: 40%;
+  }
 }
