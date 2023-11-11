@@ -1,11 +1,4 @@
-import { ReactNode } from "react";
-
-interface Props {
-  children: ReactNode;
-  type?: string;
-}
-
-function Surface({children, type}: Props) {
+function Surface({children, type}) {
   return (
     <div className={`surface shadow elevation-1 ${type}`}>
       <div className="surface-container">

@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Surface from "../layout/Surface";
@@ -11,7 +11,7 @@ function RegisterAccount() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -24,7 +24,7 @@ function RegisterAccount() {
       await registerUser(email, password);
       navigate("/");
     } catch (e) {
-      setError((e as Error).message);
+      setError(e.message);
     }
   };
 

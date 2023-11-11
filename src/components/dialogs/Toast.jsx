@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
 
-interface Props {
-  show: boolean;
-  onCloseToast: () => void;
-  message: string;
-  type: string;
-}
 // IMPORTANT
 //  - When using this Toast component the following code needs to go in the parent 
 // ==========================================================================================
@@ -17,7 +11,7 @@ interface Props {
 //   }
 // ==========================================================================================
 
-function Toast({ show, onCloseToast, message, type }: Props) {
+function Toast({ show, onCloseToast, message, type }) {
   const [toastTypeClasses, setToastTypeClasses] = useState("");
   const [toastButtonTypeClasses, setToastButtonTypeClasses] = useState("");
 

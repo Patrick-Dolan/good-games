@@ -1,6 +1,6 @@
 import Surface from "../layout/Surface";
 import { useFirebaseAuth } from "../../context/AuthContext";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
@@ -10,7 +10,7 @@ function SignIn() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: FormEvent): Promise<void> => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -18,7 +18,7 @@ function SignIn() {
       await signIn(email, password);
       navigate("/");
     } catch (e) {
-      setError((e as Error).message);
+      setError(e.message);
     }
   }
 

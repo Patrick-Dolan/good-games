@@ -6,12 +6,12 @@ function NavBar() {
   const { user, logout } = useFirebaseAuth();
   const navigate = useNavigate();
 
-  const handleUserLogout = async (): Promise<void> => {
+  const handleUserLogout = async () => {
     try {
       await logout();
       navigate("/");
     } catch (e) {
-      console.log((e as Error).message);
+      console.log(e.message);
     }
   }
 
