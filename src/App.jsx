@@ -15,7 +15,7 @@ function App() {
   const [toastType, setToastType] = useState("error");
   const [toastMessage, setToastMessage] = useState("Unknown error.")
 
-  const handleCloseToast = (): void => {
+  const handleCloseToast = () => {
     setShowToast(false);
   }
   const handleUnauthorizedAccess = () => {

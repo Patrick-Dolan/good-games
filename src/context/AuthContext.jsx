@@ -3,34 +3,19 @@ import {
   useContext,
   useEffect,
   useState,
-  ReactNode,
 } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  UserCredential,
 } from "firebase/auth";
-import { auth } from "./../../firebase";
+import { auth } from "../../firebase";
 
-interface User {
-  uid: string;
-  email: string | null;
-}
+export const UserContext = createContext(null);
 
-interface UserContextProps {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  registerUser: (email: string, password: string) => Promise<UserCredential>;
-  signIn: (email: string, password: string) => Promise<UserCredential>;
-  logout: () => Promise<void>;
-}
-
-export const UserContext = createContext<UserContextProps | null>(null);
-
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider= ({ children }) => {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -46,11 +31,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
   }, []);
 
-  const registerUser = async (email: string, password: string) => {
+  const registerUser = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
