@@ -1,4 +1,4 @@
-# _GoodGames_
+# GoodGames
 
 #### By _**Patrick Dolan**_
 
@@ -7,7 +7,6 @@
 ## Technologies Used
 
 - HTML/CSS
-- TypeScript
 - React
 - Firebase
 
