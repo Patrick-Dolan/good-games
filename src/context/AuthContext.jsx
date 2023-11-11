@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase";
 
@@ -19,7 +20,7 @@ export const AuthProvider= ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser?.uid) {
+      if (currentUser) {
         setUser(currentUser);
       }
       // TODO Remove console log when done testing conditionals based on user logged in
@@ -35,6 +36,30 @@ export const AuthProvider= ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  const updateUsername = async (newUsername) => {
+    if (!newUsername) {
+      console.log("Error updating user: new username undefined.");
+    }
+    const updatedInfo = {
+      displayName: newUsername || auth.currentUser?.displayName,
+      photoURL: auth.currentUser?.photoURL || null
+    }
+
+    await updateProfile(auth.currentUser, updatedInfo)
+  }
+
+  const updateUserPhoto = async (newPhotoURL) => {
+    if (!newPhotoURL) {
+      console.log("Error updating user: new photo url undefined.")
+    }
+    const updatedInfo = {
+      displayName: auth.currentUser?.displayName || null,
+      photoURL: newPhotoURL || auth.currentUser?.photoURL
+    }
+
+    await updateProfile(auth.currentUser, updatedInfo)
+  }
+
   const signIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -46,7 +71,15 @@ export const AuthProvider= ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, registerUser, signIn, logout }}
+      value={{ 
+        user, 
+        setUser, 
+        registerUser, 
+        updateUsername,
+        updateUserPhoto,
+        signIn, 
+        logout 
+      }}
     >
       {children}
     </UserContext.Provider>
