@@ -5,7 +5,10 @@ function Account() {
 
   return (
     <div className="container">
-      <h3>Email: {user?.email}</h3>
+      <h3>Account</h3>
+      <hr />
+      <p>Username: {user?.displayName}</p>
+      <p>Email: {user?.email}</p>
     </div>
   );
 }

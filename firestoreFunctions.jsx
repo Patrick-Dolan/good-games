@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
 
 
 // ==================== Firestore Functions ====================
@@ -15,4 +15,18 @@ export const updateUserDBEntry = async (user, userDetails) => {
     createdAt: user.createdAt || serverTimestamp()
   }
   await setDoc(docRef, payload, { merge: true });
+}
+
+// Get User data
+export const getUserData = async (user) => {
+  if (user?.uid) {
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("No document found.");
+    }
+  }
 }

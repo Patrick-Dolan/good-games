@@ -12,6 +12,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase";
+import { getUserData } from "../../firestoreFunctions";
 
 export const UserContext = createContext(null);
 
@@ -19,9 +20,19 @@ export const AuthProvider= ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const getAndMergeUserDbData = async (currentUser) => {
+      const dbData = await getUserData(currentUser);
+      const updatedUser = {
+        ...dbData,
+        ...currentUser
+      };
+      setUser(updatedUser);
+    };
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        getAndMergeUserDbData(currentUser);
       }
       // TODO Remove console log when done testing conditionals based on user logged in
       console.log(currentUser);
