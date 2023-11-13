@@ -284,3 +284,9 @@ input {
     max-width: 40%;
   }
 }
+
+/* Profile pictures */
+
+.profile-picture {
+  width: 10em;
+}
