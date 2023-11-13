@@ -27,25 +27,33 @@ function RegisterAccount() {
 
     // Check if passwords match
     if (password.trim() != passwordConfirmation.trim()) {
-      setErrorMessage("Error: Passwords must match.");
+      setErrorMessage("Passwords must match.");
       return true;
     }
 
     // Check if passwords include spaces
     if (password.includes(" ")) {
-      setErrorMessage("Error: Password cannot include spaces.");
+      setErrorMessage("Password cannot include spaces.");
       return true;
     }
 
     // Make sure username only includes alphanumeric characters and/or underscores
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
     if (!usernameRegex.test(tUsername)) {
-      setErrorMessage("Error: Username can only include letters, numbers, and underscores.")
+      setErrorMessage("Username can only include letters, numbers, and underscores.");
+      return true;
+    }
+
+    // Make sure username is at least 4 characters long
+    if (tUsername.length <= 3) {
+      setErrorMessage("Username must be 4 or more characters long");
       return true;
     }
 
     return false;
   }
+
+  // TODO add display name availability check
 
   const handleSubmit = async (e) => {
     e.preventDefault();
