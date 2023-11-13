@@ -10,22 +10,53 @@ function RegisterAccount() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  const validateAndSanitizeFormData = () => {
+    setErrorMessage("");
+    // Trim all form fields and set those values 
+    const tEmail = email.trim();
+    const tUsername = username.trim();
+    const tPassword = password.trim();
+    const tPasswordConfirmation = passwordConfirmation.trim();
+    setEmail(prev => prev = tEmail);
+    setUsername(prev => prev = tUsername);
+    setPassword(prev => prev = tPassword);
+    setPasswordConfirmation(prev => prev = tPasswordConfirmation);
+
+    // Check if passwords match
+    if (password.trim() != passwordConfirmation.trim()) {
+      setErrorMessage("Error: Passwords must match.");
+      return true;
+    }
+
+    // Check if passwords include spaces
+    if (password.includes(" ")) {
+      setErrorMessage("Error: Password cannot include spaces.");
+      return true;
+    }
+
+    // Make sure username only includes alphanumeric characters and/or underscores
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    if (!usernameRegex.test(tUsername)) {
+      setErrorMessage("Error: Username can only include letters, numbers, and underscores.")
+      return true;
+    }
+
+    return false;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    
-    // TODO Sanitize data from form before updating backend
-    if (password.trim() != passwordConfirmation.trim()) {
-      setError("Error: Passwords must match.");
-      return;
-    }
+    setErrorMessage("");
+
+    const failsFormValidation = validateAndSanitizeFormData();
+    if (failsFormValidation) { return; }
 
     try {
       // Create new user with Auth
-      const newUser = await registerUser(email, password);
+      const newUser = await registerUser(email.trim(), password.trim());
       // Add user to database
       const userDetails = {
         displayName: username,
@@ -37,7 +68,7 @@ function RegisterAccount() {
       await updateUsername(username);
       navigate("/");
     } catch (e) {
-      setError(e.message);
+      setErrorMessage(e.message);
     }
   };
 
@@ -92,7 +123,7 @@ function RegisterAccount() {
         </div>
         <button type="submit" className="form__button">Sign up</button>
       </form>
-      {error.length > 0 && (<><p>Error:</p><p>{error}</p></>)}
+      {errorMessage.length > 0 && (<><p>Error:</p><p>{errorMessage}</p></>)}
     </Surface>
   );
 }
