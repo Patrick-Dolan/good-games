@@ -8,6 +8,7 @@
 */
 
 :root {
+  /* General colors */
   --dark-bg-color: #0b0c10;
   --text-white: #FFFFFF;
   --primary-color: #66fd7d;
@@ -15,6 +16,12 @@
   --surface-bg-color: #121212;
   --error-color: #9C2B2E;
   --info-box-color: #404040;
+
+  /* Colors with Opacities */
+  --surface-border-color: rgba(128,128,128, .1);
+  --surface-elevation1-bg-color: rgba(255, 255, 255, .05);
+  --surface-elevation2-bg-color: rgba(255, 255, 255, .11);
+  --shadow-color: rgba(0, 0, 0, .2);
 }
 
 *,
@@ -72,7 +79,7 @@ h1, h2, h3, h4, h5 {
   height: 100%;
   width: 100%;
   border-radius: .5em;
-  border: 2px rgba(128,128,128, .1) solid;
+  border: 2px var(--surface-border-color) solid;
 }
 
 .surface-container {
@@ -96,15 +103,15 @@ h1, h2, h3, h4, h5 {
 }
 
 .elevation-1 {
-  background-color: rgba(255, 255, 255, .05);
+  background-color: var(--surface-elevation1-bg-color);
 }
 
 .elevation-2 {
-  background-color: rgba(255, 255, 255, .11);
+  background-color: var(--surface-elevation2-bg-color);
 }
 
 .shadow {
-  box-shadow: 0 0 .5em .2em rgba(0, 0, 0, .2);
+  box-shadow: 0 0 .5em .2em var(--shadow-color);
 }
 
 /* Navbar */
