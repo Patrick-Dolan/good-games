@@ -50,8 +50,18 @@ button {
 }
 
 button:hover,
-button:focus {
+button:focus,
+a:hover,
+a:focus {
   opacity: 0.75;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+a:visited {
+  color: var(--primary-color-dark);
 }
 
 h1, h2, h3, h4, h5 {
@@ -159,6 +169,10 @@ nav {
   font-weight: 400;
 }
 
+.nav__link:visited {
+  color: var(--text-white);
+}
+
 .nav__link:hover,
 .nav__link:focus {
   opacity: 0.75;
@@ -171,6 +185,10 @@ nav {
   padding: 0.5em 0.5em;
   border-radius: 1em;
   font-weight: bold;
+}
+
+.nav__link-button:visited {
+  color: var(--dark-bg-color);
 }
 
 /* Form Styling */
