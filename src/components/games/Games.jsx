@@ -1,5 +1,9 @@
 function Games() {
-  return <div>Games Placeholder</div>;
+  return (
+    <div className="container">
+      <div>Games Placeholder</div>
+    </div>
+  );
 }
 
 export default Games;
