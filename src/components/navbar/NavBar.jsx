@@ -3,7 +3,8 @@ import { useFirebaseAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import HamburgerMenu from "../../assets/HamburgerMenu";
-import CloseIcon from "../../assets/CloseIcon";
+import MobileUserNav from "./MobileUserNav";
+import DesktopUserNav from "./DesktopUserNav";
 
 function NavBar() {
   const { user, logout } = useFirebaseAuth();
@@ -33,6 +34,14 @@ function NavBar() {
     }
   }
 
+  const handleOpenMobileUserNav = () => {
+    setShowMobileNav(true);
+  }
+
+  const handleCloseMobileUserNav = () => {
+    setShowMobileNav(false);
+  }
+
   return (
     <header className="elevation-2 shadow">
       <nav className="container row">
@@ -55,91 +64,23 @@ function NavBar() {
           ? (
             showMobileNav 
             ? (
-              user ? (
-                <>
-                  <div className="mobile-nav shadow">
-                    <div className="close-icon-row">
-                      <CloseIcon className="close-icon" onClick={() => setShowMobileNav(false)}></CloseIcon>
-                    </div>
-                    <ul className="mobile-nav__list">
-                      <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
-                        <Link className="nav__link" to={"/account/"}>
-                          Account
-                        </Link>
-                      </li>
-                      <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
-                        <Link className="nav__link" onClick={handleUserLogout} to={"/"}>
-                          Logout
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div id="hamburger-shader" onClick={() => setShowMobileNav(false)}></div>
-                </>
-              ) : (
-                <>
-                  <div className="mobile-nav shadow">
-                    <div>
-                      <div className="close-icon-row">
-                        <CloseIcon className="close-icon" onClick={() => setShowMobileNav(false)}></CloseIcon>
-                      </div>
-                      <ul className="mobile-nav__list">
-                        <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
-                          <Link className="nav__link" to={"/account/sign-in"}>
-                            Sign in
-                          </Link>
-                        </li>
-                        <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
-                          <Link className="nav__link" to={"/account/new"}>
-                            Sign up
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div id="hamburger-shader" onClick={() => setShowMobileNav(false)}></div>
-                </>
-              )
+              <MobileUserNav 
+                user={user} 
+                closeMobileUserNav={handleCloseMobileUserNav} 
+                handleUserLogout={handleUserLogout}
+              />
             )
             : (
-              <div 
-                className="hamburger-menu" 
-                onClick={() => setShowMobileNav(true)}
-              >
-                <HamburgerMenu /> 
-              </div>
+              <HamburgerMenu 
+                openMobileUserNav={handleOpenMobileUserNav}
+              /> 
             )
           )
           : (
-            user 
-            ? (
-              <ul className="nav__list">
-                <li className="nav__list-item">
-                  <Link className="nav__link" to={"/account/"}>
-                    Account
-                  </Link>
-                </li>
-                  <li className="nav__list-item">
-                    <Link className="nav__link nav__link-button" onClick={handleUserLogout} to={"/"}>
-                      Logout
-                    </Link>
-                </li>
-              </ul>
-            )
-            : (
-              <ul className="nav__list">
-                <li className="nav__list-item">
-                  <Link className="nav__link" to={"/account/sign-in"}>
-                    Sign in
-                  </Link>
-                </li>
-                <li className="nav__list-item">
-                  <Link className="nav__link nav__link-button" to={"/account/new"}>
-                    Sign up
-                  </Link>
-                </li>
-              </ul>
-            )
+            <DesktopUserNav
+              user={user}
+              handleUserLogout={handleUserLogout}
+            />
           )
         }
       </nav>
