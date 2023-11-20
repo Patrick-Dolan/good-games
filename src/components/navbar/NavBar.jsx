@@ -95,6 +95,7 @@ function NavBar() {
                       </li>
                     </ul>
                   </div>
+                  <div id="hamburger-shader" onClick={() => setShowMobileNav(false)}></div>
                 </>
               )
             )
