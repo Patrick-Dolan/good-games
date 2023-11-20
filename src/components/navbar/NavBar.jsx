@@ -57,7 +57,7 @@ function NavBar() {
             ? (
               user ? (
                 <>
-                  <div className="mobile-nav">
+                  <div className="mobile-nav shadow">
                     <div className="close-icon-row">
                       <CloseIcon className="close-icon" onClick={() => setShowMobileNav(false)}></CloseIcon>
                     </div>
@@ -78,22 +78,24 @@ function NavBar() {
                 </>
               ) : (
                 <>
-                  <div className="mobile-nav">
-                    <div className="close-icon-row">
-                      <CloseIcon className="close-icon" onClick={() => setShowMobileNav(false)}></CloseIcon>
+                  <div className="mobile-nav shadow">
+                    <div>
+                      <div className="close-icon-row">
+                        <CloseIcon className="close-icon" onClick={() => setShowMobileNav(false)}></CloseIcon>
+                      </div>
+                      <ul className="mobile-nav__list">
+                        <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
+                          <Link className="nav__link" to={"/account/sign-in"}>
+                            Sign in
+                          </Link>
+                        </li>
+                        <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
+                          <Link className="nav__link" to={"/account/new"}>
+                            Sign up
+                          </Link>
+                        </li>
+                      </ul>
                     </div>
-                    <ul className="mobile-nav__list">
-                      <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
-                        <Link className="nav__link" to={"/account/sign-in"}>
-                          Sign in
-                        </Link>
-                      </li>
-                      <li className="mobile-nav__list-item" onClick={() => setShowMobileNav(false)}>
-                        <Link className="nav__link" to={"/account/new"}>
-                          Sign up
-                        </Link>
-                      </li>
-                    </ul>
                   </div>
                   <div id="hamburger-shader" onClick={() => setShowMobileNav(false)}></div>
                 </>
