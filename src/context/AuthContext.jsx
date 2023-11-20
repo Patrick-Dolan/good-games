@@ -21,7 +21,7 @@ export const AuthProvider= ({ children }) => {
 
   useEffect(() => {
     const getAndMergeUserDbData = async (currentUser) => {
-      const dbData = await getUserData(currentUser);
+      const dbData = await getUserData(currentUser.uid);
       const updatedUser = {
         ...dbData,
         ...currentUser

@@ -18,9 +18,9 @@ export const updateUserDBEntry = async (user, userDetails) => {
 }
 
 // Get User data
-export const getUserData = async (user) => {
-  if (user?.uid) {
-    const docRef = doc(db, "users", user.uid);
+export const getUserData = async (userId) => {
+  if (userId) {
+    const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
