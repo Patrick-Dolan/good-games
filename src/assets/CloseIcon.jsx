@@ -6,7 +6,6 @@ const CloseIcon = (props) => {
         width={30}
         height={30}
         viewBox="0 0 24 24"
-        style={{alignSelf: "center", float: "right", margin: "1em"}}
         {...props}
       >
         <path
