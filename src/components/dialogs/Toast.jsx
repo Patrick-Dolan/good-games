@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 //   const [showToast, setShowToast] = useState(false);
 //   const [toastMessage, setToastMessage] = useState("Message that component needs shown.")
 
-//   const handleCloseToast = (): void => {
+//   const handleCloseToast = () => {
 //     setShowToast(false);
 //   }
 // ==========================================================================================
