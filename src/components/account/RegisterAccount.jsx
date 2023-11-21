@@ -81,7 +81,7 @@ function RegisterAccount() {
   };
 
   return (
-    <Surface type="surface__auth">
+    <Surface type="surface__auth" elevation="elevation-1">
       <h3>Sign up</h3>
       <p>Already have an account? <Link to={"/account/sign-in"}>Sign in.</Link></p>
       <form onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ function RegisterAccount() {
             onChange={(e) => setPasswordConfirmation(e.target.value)}
           />
         </div>
-        <button type="submit" className="form__button">Sign up</button>
+        <button type="submit">Sign up</button>
       </form>
       {errorMessage.length > 0 && (<><p>Error:</p><p>{errorMessage}</p></>)}
     </Surface>

@@ -23,7 +23,7 @@ function SignIn() {
   }
 
   return (
-    <Surface type="surface__auth">
+    <Surface type="surface__auth" elevation="elevation-1">
       <h3>Sign in</h3>
       <p>Don't have an account? <Link to={"/account/new"}>Sign up.</Link></p>
       <form onSubmit={handleSubmit}>
@@ -49,7 +49,7 @@ function SignIn() {
             required
           />
         </div>
-        <button type="submit" className="form__button">Sign in</button>
+        <button type="submit">Sign in</button>
       </form>
       {error.length > 0 && (<><p>Error:</p><p>{error}</p></>)}
     </Surface>
