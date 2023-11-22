@@ -37,6 +37,8 @@ function RegisterAccount() {
       return true;
     }
 
+    // TODO set up function to check username for following restrictions and add here
+
     // Make sure username only includes alphanumeric characters and/or underscores
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
     if (!usernameRegex.test(tUsername)) {
