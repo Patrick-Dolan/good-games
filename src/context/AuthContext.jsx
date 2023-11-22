@@ -10,6 +10,8 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  EmailAuthProvider,
+  reauthenticateWithCredential
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { getUserData } from "../../firestoreFunctions";
@@ -71,6 +73,14 @@ export const AuthProvider= ({ children }) => {
     await updateProfile(auth.currentUser, updatedInfo)
   }
 
+  const confirmAuthWithFirebase = async (email, password) => {
+    const credentials = EmailAuthProvider.credential(
+      email,
+      password
+    )
+    return reauthenticateWithCredential(auth.currentUser, credentials)
+  }
+
   const signIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -88,6 +98,7 @@ export const AuthProvider= ({ children }) => {
         registerUser, 
         updateUsername,
         updateUserPhoto,
+        confirmAuthWithFirebase,
         signIn, 
         logout 
       }}
