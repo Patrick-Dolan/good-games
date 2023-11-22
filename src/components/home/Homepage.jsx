@@ -1,4 +1,4 @@
-function Homepage() {
+function HomePage() {
   return (
     <div className="container">
       <h1>GoodGames</h1>
@@ -10,4 +10,4 @@ function Homepage() {
   )
 }
 
-export default Homepage;
+export default HomePage;

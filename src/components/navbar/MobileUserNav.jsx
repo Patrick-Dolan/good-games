@@ -11,8 +11,13 @@ function MobileUserNav({user, closeMobileUserNav, handleUserLogout}) {
           </div>
           <ul className="mobile-nav__list">
             <li className="mobile-nav__list-item" onClick={() => closeMobileUserNav()}>
+              <Link className="nav__link" to={`user/${user.uid}`}>
+                Profile
+              </Link>
+            </li>
+            <li className="mobile-nav__list-item" onClick={() => closeMobileUserNav()}>
               <Link className="nav__link" to={"/account/"}>
-                Account
+                Account Settings
               </Link>
             </li>
             <li className="mobile-nav__list-item" onClick={() => closeMobileUserNav()}>

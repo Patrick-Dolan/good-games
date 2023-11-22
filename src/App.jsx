@@ -1,6 +1,6 @@
 import "./App.css";
 import Games from "./components/games/Games";
-import Homepage from "./components/home/Homepage";
+import HomePage from "./components/home/Homepage";
 import NavBar from "./components/navbar/NavBar";
 import { Route, Routes } from "react-router";
 import AccountRegisterPage from "./components/pages/AccountRegisterPage";
@@ -9,6 +9,7 @@ import Account from "./components/account/Account";
 import ProtectedRoute from "./components/account/ProtectedRoute";
 import { useState } from "react";
 import Toast from "./components/dialogs/Toast";
+import ProfilePage from "./components/user/Profilepage";
 
 function App() {
   const [showToast, setShowToast] = useState(false);
@@ -28,7 +29,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="games" element={<Games />} />
         <Route path="account" element={
             <ProtectedRoute handleUnauthorizedAccess={handleUnauthorizedAccess}>
@@ -38,6 +39,7 @@ function App() {
         />
         <Route path="account/sign-in" element={<AccountSignInPage />} />
         <Route path="account/new" element={<AccountRegisterPage />} />
+        <Route path="user/:userId" element={<ProfilePage />} />
       </Routes>
       <Toast 
         onCloseToast={handleCloseToast} 

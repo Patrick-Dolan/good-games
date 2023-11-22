@@ -6,8 +6,13 @@ function DesktopUserNav({user, handleUserLogout}) {
     ? (
       <ul className="nav__list">
         <li className="nav__list-item">
+          <Link className="nav__link" to={`user/${user.uid}`}>
+            Profile
+          </Link>
+        </li>
+        <li className="nav__list-item">
           <Link className="nav__link" to={"/account/"}>
-            Account
+            Account Settings
           </Link>
         </li>
           <li className="nav__list-item">
