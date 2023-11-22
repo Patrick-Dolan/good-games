@@ -5,7 +5,7 @@ import NavBar from "./components/navbar/NavBar";
 import { Route, Routes } from "react-router";
 import AccountRegisterPage from "./components/pages/AccountRegisterPage";
 import AccountSignInPage from "./components/pages/AccountSignInPage";
-import Account from "./components/account/Account";
+import AccountPage from "./components/account/AccountPage";
 import ProtectedRoute from "./components/account/ProtectedRoute";
 import { useState } from "react";
 import Toast from "./components/dialogs/Toast";
@@ -33,7 +33,7 @@ function App() {
         <Route path="games" element={<Games />} />
         <Route path="account" element={
             <ProtectedRoute handleUnauthorizedAccess={handleUnauthorizedAccess}>
-              <Account />
+              <AccountPage />
             </ProtectedRoute>
           }
         />
