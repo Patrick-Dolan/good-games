@@ -46,7 +46,11 @@ function ConfirmAuth({setAuthVerified}) {
         </div>
         <button type="submit">Sign in</button>
       </form>
-      {error.length > 0 && (<><p>Error:</p><p>{error}</p></>)}
+      {error.length > 0 && (
+        <div className="error-box">
+          <p>{error}</p>
+        </div>
+      )}
     </div>
   )
 }
