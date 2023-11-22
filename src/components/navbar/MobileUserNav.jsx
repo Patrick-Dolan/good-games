@@ -7,7 +7,7 @@ function MobileUserNav({user, closeMobileUserNav, handleUserLogout}) {
       <>
         <div className="mobile-nav shadow">
           <div className="close-icon-row">
-            <CloseIcon className="close-icon" onClick={() => closeMobileUserNav()}></CloseIcon>
+            <CloseIcon onClick={() => closeMobileUserNav()}></CloseIcon>
           </div>
           <ul className="mobile-nav__list">
             <li className="mobile-nav__list-item" onClick={() => closeMobileUserNav()}>
@@ -34,7 +34,7 @@ function MobileUserNav({user, closeMobileUserNav, handleUserLogout}) {
         <div className="mobile-nav shadow">
           <div>
             <div className="close-icon-row">
-              <CloseIcon className="close-icon" onClick={() => closeMobileUserNav()}></CloseIcon>
+              <CloseIcon onClick={() => closeMobileUserNav()}></CloseIcon>
             </div>
             <ul className="mobile-nav__list">
               <li className="mobile-nav__list-item" onClick={() => closeMobileUserNav()}>

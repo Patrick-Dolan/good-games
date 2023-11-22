@@ -376,34 +376,7 @@ button:focus {
 
 .toast-message {
   margin: 0 0;
-  padding: .25em 0;
-}
-
-.toast__hr {
-  margin: 0 0;
-}
-
-.toast__button {
-  border: none;
-  height: 2em;
-  align-self: center;
-  margin: 0 0;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: large;
-  max-height: 1.75em;
-}
-
-.toast__button-error {
-  background-color: var(--error-color);
-}
-
-.toast__button-success {
-  background-color: var(--primary-color-dark);
-}
-
-.toast__button-info {
-  background-color: var(--info-box-color);
+  padding-bottom: .5em;
 }
 
 @media (min-width: 600px) {

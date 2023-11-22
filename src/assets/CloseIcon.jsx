@@ -6,6 +6,7 @@ const CloseIcon = (props) => {
         width={30}
         height={30}
         viewBox="0 0 24 24"
+        className="close-icon"
         {...props}
       >
         <path
