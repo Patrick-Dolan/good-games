@@ -10,6 +10,8 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  updatePassword,
+  updateEmail,
   EmailAuthProvider,
   reauthenticateWithCredential
 } from "firebase/auth";
@@ -63,14 +65,22 @@ export const AuthProvider= ({ children }) => {
 
   const updateUserPhoto = async (newPhotoURL) => {
     if (!newPhotoURL) {
-      console.log("Error updating user: new photo url undefined.")
+      console.log("Error updating user: new photo url undefined.");
     }
     const updatedInfo = {
       displayName: auth.currentUser?.displayName || null,
       photoURL: newPhotoURL || auth.currentUser?.photoURL
     }
 
-    await updateProfile(auth.currentUser, updatedInfo)
+    await updateProfile(auth.currentUser, updatedInfo);
+  }
+
+  const updateUserEmail = (newEmail) => {
+    return updateEmail(auth.currentUser, newEmail);
+  }
+
+  const updateUserPassword = (newPassword) => {
+    return updatePassword(auth.currentUser, newPassword);
   }
 
   const confirmAuthWithFirebase = async (email, password) => {
@@ -78,7 +88,7 @@ export const AuthProvider= ({ children }) => {
       email,
       password
     )
-    return reauthenticateWithCredential(auth.currentUser, credentials)
+    return reauthenticateWithCredential(auth.currentUser, credentials);
   }
 
   const signIn = async (email, password) => {
@@ -98,6 +108,8 @@ export const AuthProvider= ({ children }) => {
         registerUser, 
         updateUsername,
         updateUserPhoto,
+        updateUserEmail,
+        updateUserPassword,
         confirmAuthWithFirebase,
         signIn, 
         logout 
