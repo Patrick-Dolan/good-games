@@ -53,8 +53,8 @@ button {
   color: var(--text-white);
   letter-spacing: .1em;
   border-color: var(--primary-color);
-  min-height: 3.5em;
-  max-height: 3.5em;
+  min-height: 2.75em;
+  max-height: 2.75em;
   border-radius: .5em;
   text-transform: uppercase;
   font-weight: bold;
@@ -321,6 +321,13 @@ input {
   min-height: 3em;
   border-radius: .45em;
   padding: 1em;
+}
+
+textarea {
+  min-height: 5em;
+  border-radius: .45em;
+  padding: 1em;
+  resize: none;;
 }
 
 input:focus,
