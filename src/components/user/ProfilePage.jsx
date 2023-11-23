@@ -38,6 +38,9 @@ function ProfilePage() {
               />
               <p className="text-center">@{userProfileData?.displayName}</p>
               <hr />
+              {userProfileData?.favoriteGame && <p>Favorite Game: {userProfileData?.favoriteGame}</p>}
+              {userProfileData?.bio && <p>Bio: {userProfileData?.bio}</p>}
+              {userProfileData?.createdAt && <p>Member Since: {userProfileData?.createdAt.toDate().getMonth()}/{userProfileData?.createdAt.toDate().getFullYear()}</p>}
             </div>
           </Surface>
         </div>
