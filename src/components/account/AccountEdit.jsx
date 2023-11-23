@@ -105,15 +105,17 @@ function AccountEdit({closeEditForm, handleToast}) {
       <h3>Edit Account</h3>
       <hr />
       <form onSubmit={handleNewUsernameSubmit}>
-        <label htmlFor="newUsername">Username:</label>
-        <input 
-          type="text" 
-          id="newUsername" 
-          name="newUsername"
-          defaultValue={user?.displayName} 
-          required 
-          onChange={(e) => setNewUsername(e.target.value)}
-        />
+        <div className="form__group">
+          <label htmlFor="newUsername">Username:</label>
+          <input
+            type="text"
+            id="newUsername"
+            name="newUsername"
+            defaultValue={user?.displayName}
+            required
+            onChange={(e) => setNewUsername(e.target.value)}
+          />
+        </div>
         <button type="submit">Update Username</button>
         {usernameErrorMessage.length > 0 && 
           <div className="error-box">
@@ -122,15 +124,17 @@ function AccountEdit({closeEditForm, handleToast}) {
         }
       </form>
       <form onSubmit={handleNewEmailSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email"
-          defaultValue={user?.email} 
-          required 
-          onChange={(e) => setNewEmail(e.target.value)}
-        />
+        <div className="form__group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            defaultValue={user?.email}
+            required
+            onChange={(e) => setNewEmail(e.target.value)}
+          />
+        </div>
         <button type="submit">Update email</button>
         {emailErrorMessage.length > 0 && 
           <div className="error-box">
@@ -139,24 +143,28 @@ function AccountEdit({closeEditForm, handleToast}) {
         }
       </form>
       <form onSubmit={handleNewPasswordSubmit}>
-        <label htmlFor="newPassword">New Password:</label>
-        <input 
-          type="password" 
-          id="newPassword" 
-          name="newPassword"
-          placeholder="*********"
-          required
-          onChange={(e) => setNewPassword(e.target.value)} 
-        />
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input 
-          type="password" 
-          id="confirmPassword" 
-          name="confirmPassword"
-          placeholder="*********"
-          required
-          onChange={(e) => setNewPasswordConfirmation(e.target.value)} 
-        />
+        <div className="form__group">
+          <label htmlFor="newPassword">New Password:</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            placeholder="*********"
+            required
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+        </div>
+        <div className="form__group">
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="*********"
+            required
+            onChange={(e) => setNewPasswordConfirmation(e.target.value)}
+          />
+        </div>
         <button type="submit">Update Password</button>
         {passwordErrorMessage.length > 0 && 
           <div className="error-box">
