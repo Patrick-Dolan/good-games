@@ -2,20 +2,13 @@ import { useFirebaseAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import Surface from "../layout/Surface";
 import ProfileEdit from "./ProfileEdit";
-import Modal from "../dialogs/Modal";
-import ConfirmAuth from "./ConfirmAuth";
 
-function ProfileDetails({authVerified, setAuthVerified, handleToast}) {
+function ProfileDetails({handleToast}) {
   const { user } = useFirebaseAuth();
   const [editProfile, setEditProfile] = useState(false);
 
   const toggleEditProfile = () => {
     setEditProfile(!editProfile);
-  }
-
-  const handleCloseModal = () => {
-    setAuthVerified(false);
-    setEditProfile(false);
   }
 
   return (
@@ -29,30 +22,13 @@ function ProfileDetails({authVerified, setAuthVerified, handleToast}) {
       <hr />
       {editProfile
         ? (
-          authVerified
-            ? (
-              <ProfileEdit 
-                closeEditForm={toggleEditProfile}
-                handleToast={handleToast}
-              />
-            )
-            : (
-              <Modal
-                title="Sign-in to Edit"
-                closeModal={handleCloseModal}
-              >
-                <ConfirmAuth
-                  setAuthVerified={setAuthVerified}
-                />
-              </Modal>
-            )
+          <ProfileEdit 
+            closeEditForm={toggleEditProfile}
+            handleToast={handleToast}
+          />
         )
         : (
           <>
-            <div className="account-details-row">
-              <p>Username:</p>
-              <p>{user?.displayName}</p>
-            </div>
             <div className="account-details-row">
               <p>First Name:</p>
               <p>{user?.firstName}</p>
