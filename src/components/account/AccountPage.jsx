@@ -56,7 +56,11 @@ function AccountPage() {
           />
         </div>
         <div className="mb-1">
-          <ProfileDetails />
+          <ProfileDetails 
+            authVerified={authVerified}
+            setAuthVerified={setAuthVerified}
+            handleToast={handleToast}
+          />
         </div>
       </div>
       <Toast 
