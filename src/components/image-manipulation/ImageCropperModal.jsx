@@ -9,7 +9,8 @@ function ImageCropperModal({photoURL, closeModal, setPhotoURL, setFile}) {
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const cropComplete = (croppedArea, croppedAreaPixels) => {
+  // DON'T REMOVED CROPPEDAREA, REACT EASY CROP PACKAGE REQUIRES IT.
+  const cropComplete = (croppedarea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }
 
@@ -21,10 +22,9 @@ function ImageCropperModal({photoURL, closeModal, setPhotoURL, setFile}) {
   const cropImage = async () => {
     try {
       const {file, url} = await getCroppedImg(photoURL, croppedAreaPixels, rotation);
+      closeModal();
       setFile(file);
       setPhotoURL(url);
-      closeModal();
-      // TODO add toast for success and fail
     } catch (e) {
       console.log(e.message);
     }

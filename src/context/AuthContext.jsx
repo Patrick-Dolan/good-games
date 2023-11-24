@@ -63,18 +63,6 @@ export const AuthProvider= ({ children }) => {
     await updateProfile(auth.currentUser, updatedInfo)
   }
 
-  const updateUserPhoto = async (newPhotoURL) => {
-    if (!newPhotoURL) {
-      console.log("Error updating user: new photo url undefined.");
-    }
-    const updatedInfo = {
-      displayName: auth.currentUser?.displayName || null,
-      photoURL: newPhotoURL || auth.currentUser?.photoURL
-    }
-
-    await updateProfile(auth.currentUser, updatedInfo);
-  }
-
   const updateUserEmail = (newEmail) => {
     return updateEmail(auth.currentUser, newEmail);
   }
@@ -107,7 +95,6 @@ export const AuthProvider= ({ children }) => {
         setUser, 
         registerUser, 
         updateUsername,
-        updateUserPhoto,
         updateUserEmail,
         updateUserPassword,
         confirmAuthWithFirebase,

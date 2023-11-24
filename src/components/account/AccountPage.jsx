@@ -1,15 +1,17 @@
-import DefaultPFP from "./../../assets/DefaultPFP.png";
-import Surface from "../layout/Surface";
 import { useEffect, useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import AccountDetails from "./AccountDetails";
+import DefaultPFP from "./../../assets/DefaultPFP.png";
 import ProfileDetails from "./ProfileDetails";
+import Surface from "../layout/Surface";
 import Toast from "../dialogs/Toast";
+import UploadProfilePhoto from "./UploadProfilePhoto";
 
 function AccountPage() {
   const { user } = useFirebaseAuth();
   const [authVerified, setAuthVerified] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [showProfilePhotoUpdate, setShowProfilePhotoUpdate] = useState(false);
   const [toastMessage, setToastMessage] = useState("Message that component needs shown.");
   const [toastType, setToastType] = useState("error");
 
@@ -33,20 +35,35 @@ function AccountPage() {
     setShowToast(true);
   }
 
+  const toggleProfileUpdate = () => {
+    setShowProfilePhotoUpdate(!showProfilePhotoUpdate);
+  }
+
   // TODO Refactor Details components to use grid instead of flex for 2 column setup.
 
   return (
     <>
       <div className="container">
         <div className="mb-1">
-          <Surface elevation="elevation-1">
-            <img
-              src={user?.photoURL ? user.photoURL : DefaultPFP}
-              alt="A user profile picture or default if it hasn't been assigned"
-              className="profile-picture margin-center"
+          {showProfilePhotoUpdate 
+          ? (
+            <UploadProfilePhoto 
+              toggleProfileUpdate={toggleProfileUpdate}
+              handleToast={handleToast}
             />
-            <p className="text-center">@{user?.displayName}</p>
-          </Surface>
+          ) 
+          : (
+            
+            <Surface elevation="elevation-1">
+              <img
+                src={user?.photoURL ? user.photoURL : DefaultPFP}
+                alt="A user profile picture or default if it hasn't been assigned"
+                className="profile-picture margin-center"
+              />
+              <p className="text-center">@{user?.displayName}</p>
+              <button onClick={toggleProfileUpdate} className="margin-center">Change profile picture</button>
+            </Surface>
+          )}
         </div>
         <div className="mb-1">
           <AccountDetails 
