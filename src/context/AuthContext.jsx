@@ -16,7 +16,7 @@ import {
   reauthenticateWithCredential
 } from "firebase/auth";
 import { auth } from "../../firebase";
-import { getUserData } from "../../firestoreFunctions";
+import { getUserData } from "../../firebaseFunctions";
 
 export const UserContext = createContext(null);
 

@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import Surface from "../layout/Surface";
 import { useEffect, useState } from "react";
-import { getUserData } from "../../../firestoreFunctions";
+import { getUserData } from "../../../firebaseFunctions";
 import DefaultPFP from "./../../assets/DefaultPFP.png";
 
 

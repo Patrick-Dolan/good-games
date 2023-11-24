@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Surface from "../layout/Surface";
 import { useFirebaseAuth } from "../../context/AuthContext";
-import { updateUserDBEntry } from "../../../firestoreFunctions";
+import { updateUserDBEntry } from "../../../firebaseFunctions";
 
 function ProfileEdit({closeEditForm, handleToast}) {
   const { user, setUser } = useFirebaseAuth();
