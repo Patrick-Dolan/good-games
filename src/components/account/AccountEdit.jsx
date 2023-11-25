@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import Surface from "../layout/Surface";
+import { updateUserDBEntry } from "../../../firebaseFunctions";
 
 function AccountEdit({closeEditForm, handleToast}) {
   const { user, updateUserPassword, updateUserEmail, setUser, updateUsername } = useFirebaseAuth();
@@ -29,6 +30,7 @@ function AccountEdit({closeEditForm, handleToast}) {
     setUsernameErrorMessage(prev => prev = "");
 
     // TODO set up function to check username for following restrictions and add here
+    // TODO add a toast to let user know when things error or success
 
     // Make sure new username isn't the same as the old one
     if (user?.displayName === newUsername) {
@@ -51,6 +53,11 @@ function AccountEdit({closeEditForm, handleToast}) {
 
     try {
       await updateUsername(newUsername);
+      const userDetails = {
+        displayName: newUsername.trim(),
+        displayNameNormalized: newUsername.trim().toLowerCase()
+      }
+      await updateUserDBEntry(user, userDetails);
       setUser({
         ...user,
         displayName: newUsername
