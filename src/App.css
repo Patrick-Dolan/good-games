@@ -324,10 +324,12 @@ input {
 }
 
 textarea {
+  font-family: inherit;
+  font-weight: inherit;
   min-height: 5em;
   border-radius: .45em;
   padding: 1em;
-  resize: none;;
+  resize: none;
 }
 
 input:focus,
