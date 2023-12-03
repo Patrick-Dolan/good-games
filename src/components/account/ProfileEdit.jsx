@@ -5,40 +5,43 @@ import { updateUserDBEntry } from "../../../firebaseFunctions";
 
 function ProfileEdit({closeEditForm, handleToast}) {
   const { user, setUser } = useFirebaseAuth();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [favoriteGame, setFavoriteGame] = useState("");
-  const [bio, setBio] = useState("");
+  const [profileInfoForm, setProfileInfoForm] = useState({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    favoriteGame: user?.favoriteGame || "",
+    bio: user?.bio || ""
+  });
+
+  const handleProfileInfoFormChange = (e) => {
+    const { name, value } = e.target;
+    setProfileInfoForm({
+      ...profileInfoForm,
+      [name]: value
+    });
+  }
 
   const handleUpdateProfileSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO Sanitize inputs before updating database
-
     const updatedUserDetails = {
-      firstName: firstName || user?.firstName,
-      lastName: lastName || user?.lastName,
-      favoriteGame: favoriteGame || user?.favoriteGame,
-      bio: bio || user?.bio
+      firstName: profileInfoForm.firstName.trim(),
+      lastName: profileInfoForm.lastName.trim(),
+      favoriteGame: profileInfoForm.favoriteGame.trim(),
+      bio: profileInfoForm.bio.trim()
     };
 
     try {
       await updateUserDBEntry(user, updatedUserDetails);
-      handleToast("success", "Profile updated.");
       setUser({
         ...user,
         ...updatedUserDetails
       });
+      setProfileInfoForm(updatedUserDetails);
+      handleToast("success", "Profile updated.");
       closeEditForm();
     } catch (e) {
       handleToast("error", e.message);
     }
-
-    console.log("Update profile submitted.");
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Favorite Game:", favoriteGame);
-    console.log("Bio:", bio);
   }
 
   return (
@@ -54,7 +57,7 @@ function ProfileEdit({closeEditForm, handleToast}) {
             name="firstName"
             defaultValue={user?.firstName}
             required
-            onChange={(e) => setFirstName(e.target.value)}
+            onChange={handleProfileInfoFormChange}
           />
         </div>
         <div className="form__group">
@@ -65,7 +68,7 @@ function ProfileEdit({closeEditForm, handleToast}) {
             name="lastName"
             defaultValue={user?.lastName}
             required
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={handleProfileInfoFormChange}
           />
         </div>
         <div className="form__group">
@@ -76,7 +79,7 @@ function ProfileEdit({closeEditForm, handleToast}) {
             name="favoriteGame"
             defaultValue={user?.favoriteGame}
             required
-            onChange={(e) => setFavoriteGame(e.target.value)}
+            onChange={handleProfileInfoFormChange}
           />
         </div>
         <div className="form__group">
@@ -88,7 +91,7 @@ function ProfileEdit({closeEditForm, handleToast}) {
             defaultValue={user?.bio}
             maxLength={500}
             required
-            onChange={(e) => setBio(e.target.value)}
+            onChange={handleProfileInfoFormChange}
           />
         </div>
         <button type="submit">Update Profile</button>
