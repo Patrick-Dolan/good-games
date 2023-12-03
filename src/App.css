@@ -14,7 +14,7 @@
   --primary-color-dark: #269A19;
   --surface-bg-color: #121212;
   --error-color: #9C2B2E;
-  --error-light-color: #ec040c;
+  --error-color-light: #b00020;
   --info-box-color: #404040;
   --surface-elevation1-bg-color: #181818;
   --surface-elevation2-bg-color: #202020;
@@ -60,6 +60,7 @@ button {
   font-weight: bold;
   border: none;
   box-shadow: .2em .2em .5em .2em var(--shadow-color);
+  padding: .5em 1.5em;
 }
 
 button:hover,
@@ -355,7 +356,7 @@ button:focus {
 
 .form__error {
   margin-top: .25em;
-  border: 1px var(--error-light-color) solid;
+  border: 1px var(--error-color-light) solid;
   background-color: var(--error-color);
   font-size: .9rem;
   color: var(--text-white);
