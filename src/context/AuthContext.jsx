@@ -50,7 +50,7 @@ export const AuthProvider= ({ children }) => {
   // TODO look into refactoring to setUser at the end of each operation that changes user data
 
   const registerUser = async (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email.toLowerCase(), password);
   };
 
   const updateUsername = async (newUsername) => {
@@ -76,14 +76,14 @@ export const AuthProvider= ({ children }) => {
 
   const confirmAuthWithFirebase = async (email, password) => {
     const credentials = EmailAuthProvider.credential(
-      email,
+      email.toLowerCase(),
       password
     )
     return reauthenticateWithCredential(auth.currentUser, credentials);
   }
 
   const signIn = async (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email.toLowerCase(), password);
   };
 
   const logout = async () => {
