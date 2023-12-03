@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import Surface from "../layout/Surface";
-import { updateUserDBEntry } from "../../../firebaseFunctions";
+import { isUsernameValid, updateUserDBEntry } from "../../../firebaseFunctions";
 
 function AccountEdit({closeEditForm, handleToast}) {
   const { user, updateUserPassword, updateUserEmail, setUser, updateUsername } = useFirebaseAuth();
@@ -13,6 +13,9 @@ function AccountEdit({closeEditForm, handleToast}) {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
+  // TODO Refactor state management to use a single state object for each operation
+
+  // TODO refactor password check to throw error and handle in catch
   const checkPasswords = () => {
     const trimmedPassword = newPassword.trim();
     const trimmedPasswordConfirmation = newPasswordConfirmation.trim();
@@ -29,29 +32,10 @@ function AccountEdit({closeEditForm, handleToast}) {
     e.preventDefault();
     setUsernameErrorMessage(prev => prev = "");
 
-    // TODO set up function to check username for following restrictions and add here
     // TODO add a toast to let user know when things error or success
 
-    // Make sure new username isn't the same as the old one
-    if (user?.displayName === newUsername) {
-      setUsernameErrorMessage("Username cannot be the same as the current one. Please choose a different username.");
-      return;
-    }
-
-    // Make sure username only includes alphanumeric characters and/or underscores
-    const usernameRegex = /^[a-zA-Z0-9_]+$/;
-    if (!usernameRegex.test(newUsername)) {
-      setUsernameErrorMessage("Username can only include letters, numbers, and underscores.");
-      return;
-    }
-
-    // Make sure username is at least 4 characters long
-    if (newUsername.length <= 3) {
-      setUsernameErrorMessage("Username must be 4 or more characters long");
-      return;
-    }
-
     try {
+      await isUsernameValid(newUsername);
       await updateUsername(newUsername);
       const userDetails = {
         displayName: newUsername.trim(),
@@ -125,7 +109,7 @@ function AccountEdit({closeEditForm, handleToast}) {
         </div>
         <button type="submit">Update Username</button>
         {usernameErrorMessage.length > 0 && 
-          <div className="error-box">
+          <div className="form__error">
             <p>{usernameErrorMessage}</p>
           </div>
         }
@@ -144,7 +128,7 @@ function AccountEdit({closeEditForm, handleToast}) {
         </div>
         <button type="submit">Update email</button>
         {emailErrorMessage.length > 0 && 
-          <div className="error-box">
+          <div className="form__error">
             <p>{emailErrorMessage}</p>
           </div>
         }
@@ -174,7 +158,7 @@ function AccountEdit({closeEditForm, handleToast}) {
         </div>
         <button type="submit">Update Password</button>
         {passwordErrorMessage.length > 0 && 
-          <div className="error-box">
+          <div className="form__error">
             <p>{passwordErrorMessage}</p>
           </div>
         }
