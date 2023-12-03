@@ -47,6 +47,8 @@ export const AuthProvider= ({ children }) => {
     };
   }, []);
 
+  // TODO look into refactoring to setUser at the end of each operation that changes user data
+
   const registerUser = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -61,6 +63,7 @@ export const AuthProvider= ({ children }) => {
     }
 
     await updateProfile(auth.currentUser, updatedInfo)
+    setUser(prev => ({ ...prev, displayName: newUsername }));
   }
 
   const updateUserEmail = (newEmail) => {
