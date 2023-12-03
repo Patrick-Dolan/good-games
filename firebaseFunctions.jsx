@@ -1,6 +1,6 @@
 // Firestore
 import { db } from "./firebase";
-import { doc, getDoc, setDoc, serverTimestamp, updateDoc, deleteField } from "firebase/firestore";
+import { doc, collection, getDoc, getDocs, setDoc, serverTimestamp, updateDoc, deleteField, query, where } from "firebase/firestore";
 
 // Storage bucket
 import { storage } from "./firebase";
@@ -40,6 +40,38 @@ export const getUserData = async (userId) => {
   }
 }
 
+// Check username availability
+export const checkUsernameAvailability = async (newUsername) => {
+  const users = collection(db, "users");
+
+  const q = query(users, where("displayNameNormalized", "==", newUsername.toLowerCase()));
+
+  const querySnapshot = await getDocs(q);
+
+  if(!querySnapshot.empty) {
+    throw new Error("Username is already taken. Please choose a different username.");
+  }
+}
+// Check username validation
+export const isUsernameValid = async (newUsername) => {
+  // Make sure new username isn't the same as the old one
+  if (auth?.currentUser?.displayName === newUsername) {
+    throw new Error("Username cannot be the same as the current one. Please choose a different username.");
+  }
+
+  // Make sure username only includes alphanumeric characters and/or underscores
+  const usernameRegex = /^[a-zA-Z0-9_]+$/;
+  if (!usernameRegex.test(newUsername)) {
+    throw new Error("Username can only include letters, numbers, and underscores.");
+  }
+
+  // Make sure username is at least 4 characters long
+  if (newUsername.length <= 3) {
+    throw new Error("Username must be 4 or more characters long");
+  }
+  await checkUsernameAvailability(newUsername);
+}
+
 const updateUserPhoto = async (newPhotoURL) => {
   if (!newPhotoURL) {
     throw new Error("Error updating user: new photo url undefined.");
@@ -55,13 +87,14 @@ const updateUserPhoto = async (newPhotoURL) => {
 // ==================== Firebase Storage Bucket Functions ====================
 
 export const uploadProfilePicture = async (user, setUser, file) => {
-  console.log(user);
   // Delete old pfp if it exists
-  if (user.photoPath !== null || user.photoURL !== null) {
-    await deleteProfilePicture(user);
+  if (user.photoURL !== null) {
     await deleteProfilePictureUserFields(user, setUser);
   }
 
+  if (user.photoPath !== null) {
+    await deleteProfilePicture(user);
+  }
   // Create filepath for new profile picture
   let filePath = `media/users/${user.uid}/profilepicture/${file.name}`;
 
@@ -107,8 +140,9 @@ export const deleteProfilePictureUserFields = async (user, setUser) => {
 }
 
 export const deleteProfilePicture = async (user) => {
-  if (user?.photoPath === null) { return }
+  if (user.photoPath === undefined) { return }
   try {
+    console.log(user.photoPath);
     const storageRef = ref(storage, user.photoPath);
     await deleteObject(storageRef);
   } catch (error) {
