@@ -50,8 +50,12 @@ function SignIn() {
           />
         </div>
         <button type="submit">Sign in</button>
+        {error.length > 0 && 
+          <div className="form__error">
+            <p>{error}</p>
+          </div>
+        }
       </form>
-      {error.length > 0 && (<><p>Error:</p><p>{error}</p></>)}
     </Surface>
   );
 }
