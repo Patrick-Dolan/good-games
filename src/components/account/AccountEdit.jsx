@@ -13,26 +13,9 @@ function AccountEdit({closeEditForm, handleToast}) {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
-  // TODO Refactor state management to use a single state object for each operation
-
-  // TODO refactor password check to throw error and handle in catch
-  const checkPasswords = () => {
-    const trimmedPassword = newPassword.trim();
-    const trimmedPasswordConfirmation = newPasswordConfirmation.trim();
-
-    if (trimmedPassword !== trimmedPasswordConfirmation) {
-      setPasswordErrorMessage("Passwords must match.");
-      return false;
-    }
-
-    return true;
-  }
-
   const handleNewUsernameSubmit = async (e) => {
     e.preventDefault();
-    setUsernameErrorMessage(prev => prev = "");
-
-    // TODO add a toast to let user know when things error or success
+    setUsernameErrorMessage("");
 
     try {
       await isUsernameValid(newUsername);
@@ -46,6 +29,7 @@ function AccountEdit({closeEditForm, handleToast}) {
         ...user,
         displayName: newUsername
       });
+      handleToast("success", "Username updated.");
       closeEditForm();
     } catch (e) {
       setUsernameErrorMessage(e.message);
@@ -54,20 +38,21 @@ function AccountEdit({closeEditForm, handleToast}) {
 
   const handleNewEmailSubmit = async (e) => {
     e.preventDefault();
-    setEmailErrorMessage(prev => prev = "");
+    setEmailErrorMessage("");
 
-    if (user?.email === newEmail.trim()) {
-      setEmailErrorMessage("The new email cannot be the same as the current one. Please choose a different email address.");
-      return;
-    }
+    const sanitizedEmail = newEmail.trim().toLowerCase();
 
     try {
-      await updateUserEmail(newEmail.trim());
-      handleToast("success", "Email updated.");
+      // Check if email is the same as the current one
+      if (user?.email === sanitizedEmail) {
+        throw new Error("The new email cannot be the same as the current one. Please choose a different email address.");
+      }
+      await updateUserEmail(sanitizedEmail);
       setUser({
         ...user,
-        email: newEmail.trim()
+        email: sanitizedEmail
       });
+      handleToast("success", "Email updated.");
       closeEditForm();
     } catch (e) {
       setEmailErrorMessage(e.message);
@@ -76,15 +61,16 @@ function AccountEdit({closeEditForm, handleToast}) {
 
   const handleNewPasswordSubmit = async (e) => {
     e.preventDefault();
-    setPasswordErrorMessage(prev => prev = "");
-
-    const passwordAcceptable = checkPasswords();
-    if (!passwordAcceptable) { return }
+    setPasswordErrorMessage("");
 
     try {
-      await updateUserPassword(newPassword);
-      handleToast("success", "Password updated.");
+      // Check if passwords match
+      if (newPassword.trim() !== newPasswordConfirmation.trim()) {
+        throw new Error("Passwords must match.");
+      }
+      await updateUserPassword(newPassword.trim());
       setUser({...user});
+      handleToast("success", "Password updated.");
       closeEditForm();
     } catch (e) {
       setPasswordErrorMessage(e.message);
