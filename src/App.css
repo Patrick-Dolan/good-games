@@ -58,6 +58,8 @@ button {
   border-radius: .5em;
   text-transform: uppercase;
   font-weight: bold;
+  border: none;
+  box-shadow: .2em .2em .5em .2em var(--shadow-color);
 }
 
 button:hover,
@@ -318,12 +320,20 @@ label {
 }
 
 input {
+  background-color: var(--info-box-color);
+  border-style: none;
+  color: var(--text-white);
   min-height: 3em;
   border-radius: .45em;
+  box-shadow: .1em .1em .5em .1em var(--shadow-color);
   padding: 1em;
 }
 
 textarea {
+  background-color: var(--info-box-color);
+  box-shadow: .1em .1em .5em .1em var(--shadow-color);
+  border-style: none;
+  color: var(--text-white);
   font-family: inherit;
   font-weight: inherit;
   min-height: 5em;
@@ -333,6 +343,7 @@ textarea {
 }
 
 input:focus,
+textarea:focus,
 button:focus {
   outline: 2px var(--primary-color-dark) solid;
 }
@@ -340,6 +351,20 @@ button:focus {
 .form__group {
   display: flex;
   flex-direction: column;
+}
+
+.form__error {
+  margin-top: .25em;
+  border: 1px var(--error-light-color) solid;
+  background-color: var(--error-color);
+  font-size: .9rem;
+  color: var(--text-white);
+  text-align: center;
+}
+
+.form__error p {
+  margin: 0;
+  padding: .5em 0;
 }
 
 /* Toast */
@@ -413,14 +438,4 @@ button:focus {
 .account-details-row {
   display: flex;
   gap: 3em;
-}
-
-/* Error box */
-
-.error-box {
-  border: 1px var(--error-color) solid;
-  background-color: var(--error-light-color);
-  color: var(--text-white);
-  font-weight: 500;
-  text-align: center;
 }
