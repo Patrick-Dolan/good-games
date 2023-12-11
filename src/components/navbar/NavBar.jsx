@@ -54,8 +54,13 @@ function NavBar() {
               </Link>
             </li>
             <li className="nav__list-item">
-              <Link className="nav__link" to={"/games"}>
-                Games
+              <Link className="nav__link" to={"/my-games"}>
+                My Games
+              </Link>
+            </li>
+            <li className="nav__list-item">
+              <Link className="nav__link" to={"/discover"}>
+                Discover
               </Link>
             </li>
           </ul>

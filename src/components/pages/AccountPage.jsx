@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
-import AccountDetails from "./AccountDetails";
+import AccountDetails from "../account/AccountDetails";
 import DefaultPFP from "./../../assets/DefaultPFP.png";
-import ProfileDetails from "./ProfileDetails";
+import ProfileDetails from "../account/ProfileDetails";
 import Surface from "../layout/Surface";
 import Toast from "../dialogs/Toast";
-import UploadProfilePhoto from "./UploadProfilePhoto";
+import UploadProfilePhoto from "../account/UploadProfilePhoto";
 import Image from "../image-manipulation/Image";
 
 function AccountPage() {
@@ -57,6 +57,7 @@ function AccountPage() {
             <Surface elevation="elevation-1">
               <Image 
                 url={user?.photoURL}
+                image={DefaultPFP}
                 alt="A user profile picture or default if it hasn't been assigned"
                 classes={"profile-picture margin-center"}
               />
