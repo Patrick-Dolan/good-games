@@ -6,6 +6,7 @@ import ProfileDetails from "./ProfileDetails";
 import Surface from "../layout/Surface";
 import Toast from "../dialogs/Toast";
 import UploadProfilePhoto from "./UploadProfilePhoto";
+import Image from "../image-manipulation/Image";
 
 function AccountPage() {
   const { user } = useFirebaseAuth();
@@ -53,12 +54,11 @@ function AccountPage() {
             />
           ) 
           : (
-            
             <Surface elevation="elevation-1">
-              <img
-                src={user?.photoURL ? user.photoURL : DefaultPFP}
+              <Image 
+                url={user?.photoURL}
                 alt="A user profile picture or default if it hasn't been assigned"
-                className="profile-picture margin-center"
+                classes={"profile-picture margin-center"}
               />
               <p className="text-center">@{user?.displayName}</p>
               <button onClick={toggleProfileUpdate} className="margin-center">Change profile picture</button>

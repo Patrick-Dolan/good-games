@@ -3,6 +3,7 @@ import Surface from "../layout/Surface";
 import { useEffect, useState } from "react";
 import { getUserData } from "../../../firebaseFunctions";
 import DefaultPFP from "./../../assets/DefaultPFP.png";
+import LoadingAnimation from "../../assets/LoadingAnimation";
 
 
 function ProfilePage() {
@@ -22,6 +23,7 @@ function ProfilePage() {
     ? (
       <div className="container">
         <Surface elevation="elevation-1">
+          <LoadingAnimation />
           <h3 className="text-center">Profile Loading...</h3>
         </Surface>
       </div>
