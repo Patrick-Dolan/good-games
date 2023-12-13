@@ -156,7 +156,6 @@ export const deleteProfilePicture = async (user) => {
   if (!user) { throw new Error("Delete file error: user undefined."); }
   if (user.photoPath === undefined) { return }
   try {
-    console.log(user.photoPath);
     const storageRef = ref(storage, user.photoPath);
     await deleteObject(storageRef);
   } catch (error) {
