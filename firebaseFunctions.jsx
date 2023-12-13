@@ -1,6 +1,19 @@
 // Firestore
 import { db } from "./firebase";
-import { doc, collection, getDoc, getDocs, setDoc, serverTimestamp, updateDoc, deleteField, query, where } from "firebase/firestore";
+import { 
+  doc, 
+  collection, 
+  getDoc, 
+  getDocs, 
+  setDoc, 
+  serverTimestamp, 
+  updateDoc, 
+  deleteField, 
+  query, 
+  where,
+  orderBy,
+  limit
+} from "firebase/firestore";
 
 // Storage bucket
 import { storage } from "./firebase";
@@ -72,7 +85,7 @@ export const isUsernameValid = async (newUsername) => {
   await checkUsernameAvailability(newUsername);
 }
 
-const updateUserPhoto = async (newPhotoURL) => {
+export const updateUserPhoto = async (newPhotoURL) => {
   if (!newPhotoURL) {
     throw new Error("Error updating user: new photo url undefined.");
   }
@@ -82,6 +95,19 @@ const updateUserPhoto = async (newPhotoURL) => {
   }
 
   await updateProfile(auth.currentUser, updatedInfo);
+}
+
+// ====== Discovery Page Functions ======
+
+export const getTenHighestRatedGames = async () => {
+  const games = collection(db, "games");
+  const q = query(games, orderBy("metacriticScore", "desc"), limit(10));
+  const querySnapshot = await getDocs(q);
+  const highestRatedGames = [];
+  querySnapshot.forEach((doc) => {
+    highestRatedGames.push(doc.data());
+  });
+  return highestRatedGames;
 }
 
 // ==================== Firebase Storage Bucket Functions ====================
