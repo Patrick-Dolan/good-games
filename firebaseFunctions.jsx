@@ -29,18 +29,19 @@ import { updateProfile } from "firebase/auth";
 
 // Add or Update takes in user from auth and userDetails object
 export const updateUserDBEntry = async (user, userDetails) => {
+  if (!user) { throw new Error("Error updating user: user undefined."); }
   // Create Account doc for new user with same user id
   const docRef = doc(db, "users", user.uid );
-  const payload = {
+  const updatedUser = {
     ...userDetails,
     createdAt: user.createdAt || serverTimestamp()
   }
-  await setDoc(docRef, payload, { merge: true });
-  
+  await setDoc(docRef, updatedUser, { merge: true });
 }
 
 // Get User data
 export const getUserData = async (userId) => {
+  if (!userId) { throw new Error("Error getting user: userId undefined."); }
   if (userId) {
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
@@ -55,6 +56,8 @@ export const getUserData = async (userId) => {
 
 // Check username availability
 export const checkUsernameAvailability = async (newUsername) => {
+  if (!newUsername) { throw new Error("Error checking username availability: newUsername undefined."); }
+
   const users = collection(db, "users");
 
   const q = query(users, where("displayNameNormalized", "==", newUsername.toLowerCase()));
@@ -65,8 +68,11 @@ export const checkUsernameAvailability = async (newUsername) => {
     throw new Error("Username is already taken. Please choose a different username.");
   }
 }
+
 // Check username validation
 export const isUsernameValid = async (newUsername) => {
+  if (!newUsername) { throw new Error("Error checking username validation: newUsername undefined."); }
+
   // Make sure new username isn't the same as the old one
   if (auth?.currentUser?.displayName === newUsername) {
     throw new Error("Username cannot be the same as the current one. Please choose a different username.");
@@ -85,10 +91,9 @@ export const isUsernameValid = async (newUsername) => {
   await checkUsernameAvailability(newUsername);
 }
 
-export const updateUserPhoto = async (newPhotoURL) => {
-  if (!newPhotoURL) {
-    throw new Error("Error updating user: new photo url undefined.");
-  }
+const updateUserPhoto = async (newPhotoURL) => {
+  if (!newPhotoURL) { throw new Error("Error updating user: new photo url undefined."); }
+
   const updatedInfo = {
     displayName: auth.currentUser?.displayName || null,
     photoURL: newPhotoURL || auth.currentUser?.photoURL
@@ -113,7 +118,9 @@ export const getTenHighestRatedGames = async () => {
 // ==================== Firebase Storage Bucket Functions ====================
 
 export const uploadProfilePicture = async (user, setUser, file) => {
-  // Delete old pfp if it exists
+  if (!file) { throw new Error("Upload Error: No file selected."); }
+
+  // Delete old profile picture if it exists
   if (user.photoURL !== null) {
     await deleteProfilePictureUserFields(user, setUser);
   }
@@ -121,54 +128,60 @@ export const uploadProfilePicture = async (user, setUser, file) => {
   if (user.photoPath !== null) {
     await deleteProfilePicture(user);
   }
-  // Create filepath for new profile picture
-  let filePath = `media/users/${user.uid}/profilepicture/${file.name}`;
 
+  // Create filepath for new profile picture
+  const filePath = `media/users/${user.uid}/profilepicture/${file.name}`;
   const storageRef = ref(storage, filePath);
-  uploadBytes(storageRef, file).then((snapshot) => {
-    // Handle successful uploads on complete
-    getDownloadURL(snapshot.ref).then((downloadURL) => {
-      try {
-        // Setup updated user db record and update it
-        let payload = {
-          photoURL: downloadURL, 
-          photoPath: filePath
-        }
-        updateUserDBEntry(user, payload);
-        updateUserPhoto(downloadURL);
-        // Set state so site will rerender immediately
-        setUser({...user, ...payload});
-      } catch (e) {
-        throw new Error("Update Error: ", e.message)
-      }
-    });
-  });
-}
+
+  try {
+    // Upload the file to storage
+    const snapshot = await uploadBytes(storageRef, file);
+
+    // Get the download URL of the uploaded file
+    const downloadURL = await getDownloadURL(snapshot.ref);
+
+    // Update user database record and profile photo
+    const payload = {
+      photoURL: downloadURL,
+      photoPath: filePath
+    };
+    await updateUserDBEntry(user, payload);
+    await updateUserPhoto(downloadURL);
+
+    // Update user state
+    setUser({ ...user, ...payload });
+  } catch (error) {
+    throw new Error("Upload Error: " + error.message);
+  }
+};
 
 export const deleteProfilePictureUserFields = async (user, setUser) => {
+  if (!user) { throw new Error("Delete database entry error: user undefined."); }
+  if (!setUser) { throw new Error("Delete database entry error: setUser undefined."); }
+
   try {
     const userDbEntry = doc(db, "users", user.uid);
     
     await updateDoc(userDbEntry, {
       photoPath: deleteField(),
       photoURL: deleteField()
-    })
+    });
 
     const updatedUser = {
       ...user,
       photoPath: null,
       photoURL: null
-    }
-    setUser({...updatedUser});
+    };
+    setUser({ ...updatedUser });
   } catch (e) {
-    throw new Error("Database entry deletion error: ", e.message);
+    throw new Error("Database entry deletion error: " + e.message);
   }
-}
+};
 
 export const deleteProfilePicture = async (user) => {
+  if (!user) { throw new Error("Delete file error: user undefined."); }
   if (user.photoPath === undefined) { return }
   try {
-    console.log(user.photoPath);
     const storageRef = ref(storage, user.photoPath);
     await deleteObject(storageRef);
   } catch (error) {
