@@ -79,7 +79,7 @@ export const isUsernameValid = async (newUsername) => {
 }
 
 const updateUserPhoto = async (newPhotoURL) => {
-  if (!newPhotoURL) { throw new Error("Error updating user: new photo url undefined.") }
+  if (!newPhotoURL) { throw new Error("Error updating user: new photo url undefined."); }
 
   const updatedInfo = {
     displayName: auth.currentUser?.displayName || null,
@@ -130,6 +130,9 @@ export const uploadProfilePicture = async (user, setUser, file) => {
 };
 
 export const deleteProfilePictureUserFields = async (user, setUser) => {
+  if (!user) { throw new Error("Delete database entry error: user undefined."); }
+  if (!setUser) { throw new Error("Delete database entry error: setUser undefined."); }
+
   try {
     const userDbEntry = doc(db, "users", user.uid);
     
