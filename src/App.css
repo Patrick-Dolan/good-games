@@ -87,6 +87,7 @@ h1, h2, h3, h4, h5 {
   width: 90%;
   margin: 0 auto;
   max-width: 1000px;
+  margin-bottom: 2em;
 }
 
 .row {
@@ -101,6 +102,10 @@ h1, h2, h3, h4, h5 {
 
 .mb-1 {
   margin-bottom: 1em;
+}
+
+.mb-1r {
+  margin-bottom: 1rem;
 }
 
 .my-1 {
@@ -440,3 +445,37 @@ button:focus {
   display: flex;
   gap: 3em;
 }
+
+/* Games */
+
+.game__details--show-more-button {
+  width: 100%;
+  margin-bottom: 2em;
+  background-color: var(--info-box-color);
+  padding: 0 1em;
+  min-height: 2.25em;
+  font-size: .75rem;
+  font-weight: normal;
+}
+
+/* Tags */
+
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+}
+
+.tag {
+  background-color: var(--info-box-color);
+  padding: .5em 1em;
+  border-radius: .5em;
+  font-size: .8rem;
+  color: var(--text-white);
+  margin: 0 0;
+}
+
+/* .tag:hover,
+.tag:focus {
+  opacity: 0.75;
+} */

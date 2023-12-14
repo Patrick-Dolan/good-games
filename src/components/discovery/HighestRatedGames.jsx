@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getTenHighestRatedGames } from "../../../firebaseFunctions";
-import GameCard from "../layout/GameCard";
+import GameCard from "../Games/GameCard";
 
 function HighestRatedGames() {
   // TODO remove hard coded games and replace with api call
@@ -495,8 +495,6 @@ function HighestRatedGames() {
       }
     ]
   );
-
-  console.log(games);
 
   // useEffect(() => {
   //   const fetchData = async () => {

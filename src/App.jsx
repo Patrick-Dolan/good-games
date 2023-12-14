@@ -12,6 +12,7 @@ import Toast from "./components/dialogs/Toast";
 import ProfilePage from "./components/pages/ProfilePage";
 import DiscoveryPage from "./components/pages/DiscoverPage";
 import RouteNotFoundPage from "./components/pages/RouteNotFoundPage";
+import GamesPage from "./components/pages/GamesPage";
 
 function App() {
   const [showToast, setShowToast] = useState(false);
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="my-games" element={<MyGamesPage />} />
+        <Route path="games/:gameId" element={<GamesPage />} />
         <Route path="discover" element={<DiscoveryPage />} />
         <Route path="account" element={
             <ProtectedRoute handleUnauthorizedAccess={handleUnauthorizedAccess}>
