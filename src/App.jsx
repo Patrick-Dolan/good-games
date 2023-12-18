@@ -14,6 +14,7 @@ import DiscoveryPage from "./components/pages/DiscoverPage";
 import RouteNotFoundPage from "./components/pages/RouteNotFoundPage";
 import GamesPage from "./components/pages/GamesPage";
 import TestPage from "./components/pages/TestPage";
+import AboutPage from "./components/pages/AboutPage";
 
 function App() {
   const [showToast, setShowToast] = useState(false);
@@ -47,6 +48,7 @@ function App() {
         <Route path="account/new" element={<AccountRegisterPage />} />
         <Route path="user/:userId" element={<ProfilePage />} />
         <Route path="test" element={<TestPage />} />
+        <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<RouteNotFoundPage />} />
       </Routes>
       <Toast 
