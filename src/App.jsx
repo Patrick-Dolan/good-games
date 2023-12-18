@@ -13,6 +13,7 @@ import ProfilePage from "./components/pages/ProfilePage";
 import DiscoveryPage from "./components/pages/DiscoverPage";
 import RouteNotFoundPage from "./components/pages/RouteNotFoundPage";
 import GamesPage from "./components/pages/GamesPage";
+import TestPage from "./components/pages/TestPage";
 
 function App() {
   const [showToast, setShowToast] = useState(false);
@@ -45,6 +46,7 @@ function App() {
         <Route path="account/sign-in" element={<AccountSignInPage />} />
         <Route path="account/new" element={<AccountRegisterPage />} />
         <Route path="user/:userId" element={<ProfilePage />} />
+        <Route path="test" element={<TestPage />} />
         <Route path="*" element={<RouteNotFoundPage />} />
       </Routes>
       <Toast 
