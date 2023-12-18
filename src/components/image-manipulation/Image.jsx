@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LoadingAnimation from "../../assets/LoadingAnimation";
 
-function Image({ url, image, classes, alt }) {
+function Image({ url, image, classes, alt, styleObj }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setIsError(false);
-  }, [url]);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -19,8 +14,10 @@ function Image({ url, image, classes, alt }) {
     setIsError(true);
   };
 
+  const displayStyle = {display: isLoading ? "none" : "block"};
+
   return (
-    <div>
+    <>
       {isLoading && <LoadingAnimation />}
       {isError ? (
         <div className="text-center">Error loading image</div>
@@ -31,10 +28,10 @@ function Image({ url, image, classes, alt }) {
           alt={alt}
           onLoad={handleImageLoad}
           onError={handleImageError}
-          style={{ display: isLoading ? "none" : "block" }}
+          style={{ ...displayStyle, ...styleObj }}
         />
       )}
-    </div>
+    </>
   );
 }
 

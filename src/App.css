@@ -24,6 +24,7 @@
   --transparent-black: rgba(0, 0, 0, .6);
   --surface-border-color: rgba(128,128,128, .1);
   --shadow-color: rgba(0, 0, 0, .1);
+  --image-button-hover-color: rgba(0, 0, 0, .3);
 
   /* Special colors */
   --hamburger-menu-bg-color: #1e1e1e;
@@ -46,6 +47,9 @@ body {
 
 img {
   max-width: 100%;
+  height: auto;
+  display: block;
+  overflow: hidden;
 }
 
 button {
@@ -124,12 +128,12 @@ h1, h2, h3, h4, h5 {
 /* Modals */
 
 .modal {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;
-  height: 80%;
+  width: 85%;
+  height: 85%;
   z-index: 5;
   overflow: auto;
 }
@@ -458,6 +462,10 @@ button:focus {
   font-weight: normal;
 }
 
+.game-card__image {
+  object-fit: cover;
+}
+
 /* Tags */
 
 .tag-container {
@@ -475,7 +483,116 @@ button:focus {
   margin: 0 0;
 }
 
-/* .tag:hover,
-.tag:focus {
-  opacity: 0.75;
-} */
+/* Image Slider */
+
+.image-slider__container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 16/9;
+}
+
+.img-slider__inner-wrapper {
+  width: "100%";
+  height:"100%";
+  position: "relative";
+}
+
+.image-slider__img-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.image-slider__img {
+  all: revert;
+  display: block; 
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  transition: translate .3s ease-in-out;
+}
+
+.image-slider__button {
+  all: revert;
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: pointer;
+  border: none;
+  transition: background-color .3s ease-in-out;
+}
+
+.image-slider__button:hover,
+.image-slider__button:focus,
+.image-slider__button:focus-visible,
+.image-slider__button:active {
+  background-color: var(--image-button-hover-color);
+  outline: none;
+  border: none;
+}
+
+.image-slider__button:not(:hover) {
+  background-color: unset;
+  border: none;
+  transition: background-color .3s ease-in-out;
+}
+
+.image-slider__button:focus-visible {
+  background-color: var(--image-button-hover-color);
+}
+
+.image-slider__button--left {
+  left: 0;
+}
+
+.image-slider__button--right {
+  right: 0;
+}
+
+.image-slider__button-icon {
+  stroke: black;
+  stroke-width: .25;
+  width: 3rem;
+  fill: var(--primary-color);
+}
+
+.image-slider__lower-button-wrapper {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-slider__lower-button {
+  all: unset;
+  text-align: center;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  transition: scale .3s ease-in-out;
+}
+
+.image-slider__lower-button:hover,
+.image-slider__lower-button:focus {
+  scale: 1.4;
+  outline: none;
+}
+
+.image-slider__button:not(:hover) {
+  scale: 1;
+}
+
+.image-slider__lower-button-icon {
+  color: var(--primary-color);
+  margin: 0;
+}
