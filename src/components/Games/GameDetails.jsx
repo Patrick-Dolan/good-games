@@ -1,10 +1,12 @@
 import { useLayoutEffect, useState } from "react";
 import { formatDate } from "../../../utility-functions";
-import Image from "../image-manipulation/Image";
 import DOMPurify from "dompurify";
 import Tag from "./Tag";
+import { useFirebaseAuth } from "../../context/AuthContext";
+import ImageSlider from "../image-manipulation/ImageSlider";
 
-function GameDetails({ game }) {
+function GameDetails({ game, openModal }) {
+  const { user } = useFirebaseAuth();
   const [showMore, setShowMore] = useState(false);
 
   useLayoutEffect(() => {
@@ -19,7 +21,7 @@ function GameDetails({ game }) {
   }
 
   const handleAddToShelfClick = () => {
-    alert("Add to shelf clicked");
+    openModal();
   }
 
   let descriptionSection = <p>No description available.</p>;
@@ -32,20 +34,24 @@ function GameDetails({ game }) {
   } else {
     descriptionSection = 
       <>
-        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(game.description.substr(0, 200) + "...")}}></div>
+        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(game.description.substr(0, 200).trim() + "...")}}></div>
         <button className="game__details--show-more-button" onClick={handleDescriptionToggle}>Show More...</button>
       </>;
   }
 
   return (
     <div>
-      <Image url={game.backgroundImage} alt={game.name} classes="mb-1" />
-      <h2>{game.name}</h2>
+      <ImageSlider images={game.screenshots} />
+      <h2 className="mt-1">{game.name}</h2>
       <hr className="mb-1" />
-      <div className="row mb-1">
-        <button className="margin-center" onClick={handleAddToShelfClick}>Add to shelf</button>
-      </div>
-      <hr />
+      {user && (
+        <div>
+          <div className="row mb-1">
+            <button className="margin-center" onClick={handleAddToShelfClick}>Add to shelf</button>
+          </div>
+          <hr />
+        </div>
+      )}
       <h5>Description</h5>
       {descriptionSection}
       {/* TODO Add MetaCritic icon */}
