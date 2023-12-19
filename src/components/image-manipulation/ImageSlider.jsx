@@ -16,24 +16,12 @@ function ImageSlider({ images }) {
     }, 400)
   }, [])
 
-  const showNextImage = () => {
-    setImageIndex(index => {
-      if (index === images.length - 1) {
-        return 0;
-      } else {
-        return index + 1;
-      }
-    });
+  const handleShowNextImage = () => {
+    setImageIndex(index => index === images.length - 1 ? 0 : index + 1);
   }
 
-  const showPreviousImage = () => {
-    setImageIndex(index => {
-      if (index === 0) {
-        return images.length - 1;
-      } else {
-        return index - 1;
-      }
-    });
+  const handleShowPreviousImage = () => {
+    setImageIndex(index => index === 0 ? images.length - 1 : index - 1);
   }
 
   return (
@@ -58,20 +46,32 @@ function ImageSlider({ images }) {
                 />
               ))
             )}
-          </div>
-          <button onClick={showPreviousImage} className="image-slider__button image-slider__button--left" aria-label="View previous image"><LeftArrow className="image-slider__button-icon" color="#61DAFB" /></button>
-          <button onClick={showNextImage} className="image-slider__button image-slider__button--right" aria-label="View next image"><RightArrow className="image-slider__button-icon" color="#61DAFB" /></button>
-          <div className="image-slider__lower-button-wrapper">
-            {images.map((image, index) => (
-              <button 
-                key={image}
-                onClick={() => setImageIndex(index)}
-                className={"image-slider__lower-button"}
-                aria-label={`View image {index + 1} of ${images.length}}`}
-              >
-                {index === imageIndex ? <p className="image-slider__lower-button-icon">●</p> : "○"}
-              </button>
-            ))}
+        </div>
+        <button 
+          onClick={handleShowPreviousImage} 
+          className="image-slider__button image-slider__button--left" 
+          aria-label="View previous image"
+        >
+          <LeftArrow className="image-slider__button-icon" />
+        </button>
+        <button 
+          onClick={handleShowNextImage} 
+          className="image-slider__button image-slider__button--right" 
+          aria-label="View next image"
+        >
+          <RightArrow className="image-slider__button-icon" />
+        </button>
+        <div className="image-slider__lower-button-wrapper">
+          {images.map((image, index) => (
+            <button 
+              key={image}
+              onClick={() => setImageIndex(index)}
+              className={"image-slider__lower-button"}
+              aria-label={`View image {index + 1} of ${images.length}}`}
+            >
+              {index === imageIndex ? <p className="image-slider__lower-button-icon">●</p> : "○"}
+            </button>
+          ))}
         </div>
       </div>
     </div>
