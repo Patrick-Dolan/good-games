@@ -5,6 +5,8 @@ import ImageCropperModal from "../image-manipulation/ImageCropperModal";
 import { uploadProfilePicture } from "../../../firebaseFunctions";
 import Surface from "../layout/Surface";
 
+// TODO compress image before uploading
+
 function UploadProfilePhoto({toggleProfileUpdate, handleToast}) {
   const { user, setUser } = useFirebaseAuth();
   const [blobPhotoURL, setBlobPhotoURL] = useState(user?.photoURL);
