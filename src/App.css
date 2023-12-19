@@ -492,6 +492,14 @@ button:focus {
   aspect-ratio: 16/9;
 }
 
+.img-slider__loading-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .img-slider__inner-wrapper {
   width: 100%;
   height:100%;
