@@ -19,11 +19,13 @@ function Modal({children, title, closeModal}) {
     <>
       <div className="modal">
         <Surface elevation="elevation-1">
-          <div className="row">
-            <h3>{title.toUpperCase()}</h3>
-            <CloseIcon onClick={closeModal} />
+          <div className="modal__header">
+            <div className="row">
+              <h3>{title.toUpperCase()}</h3>
+              <CloseIcon onClick={closeModal} />
+            </div>
+            <hr />
           </div>
-          <hr />
           {children}
         </Surface>
       </div>
