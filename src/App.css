@@ -6,6 +6,9 @@
   font-family: 'Libre Franklin', sans-serif;
 
 */
+
+/* TODO style scrollbar */
+
 :root {
   /* General colors */
   --dark-bg-color: #0b0c10;
@@ -53,6 +56,9 @@ img {
 }
 
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--primary-color-dark);
   color: var(--text-white);
   letter-spacing: .1em;
@@ -138,6 +144,12 @@ h1, h2, h3, h4, h5 {
   overflow: auto;
 }
 
+.modal__header {
+  position: sticky;
+  top: 0;
+  background-color: var(--surface-elevation1-bg-color);
+}
+
 .modal-shader {
   display: block;
   position: fixed;
@@ -160,6 +172,7 @@ h1, h2, h3, h4, h5 {
 .surface {
   height: 100%;
   width: 100%;
+  overflow: auto;
   border: 2px var(--surface-border-color) solid;
   background-color: var(--surface-bg-color);
 }
@@ -603,4 +616,15 @@ button:focus {
 .image-slider__lower-button-icon {
   color: var(--primary-color);
   margin: 0;
+}
+
+/* Shelves */
+
+.shelf__card {
+  display: flex;
+  margin-top: 1em;
+  justify-content: space-between;
+  align-items: center;
+  padding: .75em;
+  border: 1px var(--surface-border-color) solid;
 }
