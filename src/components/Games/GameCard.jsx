@@ -13,7 +13,7 @@ function GameCard({ game }) {
           <p>MetaCritic: {game.metacriticScore}</p>
           {game.esrbRating && <p>ESRB: {game.esrbRating}</p>}
         </div>
-        <Link to={`/games/${game.id}`} state={game} className="">
+        <Link to={`/games/${game.id}`} state={game}>
           <button>More info...</button>
         </Link>
       </Surface>
