@@ -479,6 +479,35 @@ button:focus {
   object-fit: cover;
 }
 
+.game-list__item {
+  margin-bottom: .25em;
+  background-color: var(--surface-elevation1-bg-color);
+  border: 1px var(--surface-border-color) solid;
+}
+
+.game-list__item:hover,
+.game-list__item:focus {
+  border: 1px var(--primary-color-dark) solid;
+}
+
+.game-list__item-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+  align-items: center;
+  padding: 0 .75em 0 0;
+}
+
+.game-list__item-container p {
+  font-size: .9rem;
+}
+
+.game-list__item-image {
+  width: 3em;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Tags */
 
 .tag-container {
