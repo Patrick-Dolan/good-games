@@ -74,9 +74,9 @@ button {
 }
 
 button:hover,
-button:focus,
+button:focus-visible,
 a:hover,
-a:focus {
+a:focus-visible {
   opacity: 0.75;
 }
 
@@ -312,7 +312,7 @@ nav {
 }
 
 .nav__link:hover,
-.nav__link:focus {
+.nav__link:focus-visible {
   opacity: 0.75;
 }
 
@@ -365,9 +365,9 @@ textarea {
   resize: none;
 }
 
-input:focus,
-textarea:focus,
-button:focus {
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
   outline: 2px var(--primary-color-dark) solid;
 }
 
@@ -486,7 +486,7 @@ button:focus {
 }
 
 .game-list__item:hover,
-.game-list__item:focus {
+.game-list__item:focus-visible {
   border: 1px var(--primary-color-dark) solid;
 }
 
@@ -578,7 +578,6 @@ button:focus {
 }
 
 .image-slider__button:hover,
-.image-slider__button:focus,
 .image-slider__button:focus-visible,
 .image-slider__button:active {
   background-color: var(--image-button-hover-color);
@@ -650,10 +649,25 @@ button:focus {
 /* Shelves */
 
 .shelf__card {
-  display: flex;
+  padding: .75em;
   margin-top: 1em;
+  border: 1px var(--surface-border-color) solid;
+}
+
+.shelf__card--main-row {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .75em;
-  border: 1px var(--surface-border-color) solid;
+}
+
+.shelf__card--main-text {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.shelf__card--subtext {
+  font-size: .70rem;
+  font-style: italic;
+  margin: 0;
+  opacity: .60;
 }

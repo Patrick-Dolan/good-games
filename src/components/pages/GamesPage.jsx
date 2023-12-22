@@ -4,12 +4,16 @@ import { useFirebaseAuth } from "../../context/AuthContext";
 import GameDetails from "../Games/GameDetails";
 import Modal from "../dialogs/Modal";
 import Surface from "../layout/Surface";
-import ShelfAddCard from "../shelves/ShelfAddCard";
+import ShelfAddCardList from "../shelves/ShelfAddCardList";
+import Toast from "../dialogs/Toast";
 
 function GamesPage() {
   const { state: game } = useLocation();
-  const { user } = useFirebaseAuth();
+  const { user, setUser } = useFirebaseAuth();
   const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("Message that component needs shown.");
+  const [toastType, setToastType] = useState("error");
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -17,6 +21,23 @@ function GamesPage() {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  }
+
+  const handleCloseToast = () => {
+    setShowToast(false);
+  }
+
+  const handleOpenToast = (type, message) => {
+    setToastType(type);
+    setToastMessage(message);
+    setShowToast(true);
+  }
+
+  const handleUpdateCurrentUserState = (updatedShelves) => {
+    setUser(prev => ({
+      ...prev,
+      shelves: updatedShelves
+    }));
   }
 
   return (
@@ -34,7 +55,12 @@ function GamesPage() {
         >
           {user?.shelves
             ? (
-              <ShelfAddCard shelves={testShelves} game={game} />
+              <ShelfAddCardList 
+                shelves={user.shelves.sort((a, b) => b.name.localeCompare(a.name))} 
+                game={game} 
+                handleUpdateCurrentUserState={handleUpdateCurrentUserState} 
+                handleOpenToast={handleOpenToast}
+              />
             ) 
             : (
               <p>You have no shelves. Create one to add this game.</p>
@@ -42,6 +68,12 @@ function GamesPage() {
           }
         </Modal>
       )}
+      <Toast 
+        onCloseToast={handleCloseToast}
+        show={showToast}
+        message={toastMessage}
+        type={toastType}
+      />
     </div>
   )
 }
