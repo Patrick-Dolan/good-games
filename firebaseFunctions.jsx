@@ -36,8 +36,13 @@ export const updateUserDBEntry = async (user, userDetails) => {
   // Create Account doc for new user with same user id
   const docRef = doc(db, "users", user.uid );
   const updatedUser = {
-    ...userDetails,
-    createdAt: user.createdAt || serverTimestamp()
+    createdAt: user?.createdAt || serverTimestamp(),
+    shelves: user?.shelves || [
+      {name: "Playing", games: []},
+      {name: "Completed", games: []},
+      {name: "Want to play", games: []},
+    ],
+    ...userDetails
   }
   await setDoc(docRef, updatedUser, { merge: true });
 }
@@ -103,20 +108,6 @@ const updateUserPhoto = async (newPhotoURL) => {
   }
 
   await updateProfile(auth.currentUser, updatedInfo);
-}
-// ====== Game Functions ======
-
-export const updateShelvesDBEntry = async (user, shelfData) => {
-  if (!user) { throw new Error("Error updating shelf: user undefined."); }
-  if (!shelfData) { throw new Error("Error updating shelf: shelf data undefined."); }
-  // Create shelf doc for user
-  const docRef = doc(db, "shelves", (shelfData?.id || uuidv4()));
-  const updatedShelfData = {
-    ...shelfData,
-    userId: user.uid,
-    createdAt: user.createdAt || serverTimestamp()
-  }
-  await setDoc(docRef, updatedShelfData, { merge: true });
 }
 
 // ====== Discovery Page Functions ======
