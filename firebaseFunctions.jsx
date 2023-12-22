@@ -35,9 +35,9 @@ export const updateUserDBEntry = async (user, userDetails) => {
   const updatedUser = {
     createdAt: user?.createdAt || serverTimestamp(),
     shelves: user?.shelves || [
-      {name: "Playing", games: []},
-      {name: "Completed", games: []},
-      {name: "Want to play", games: []},
+      {name: "Playing", games: [], protected: true},
+      {name: "Completed", games: [], protected: true},
+      {name: "Want to play", games: [], protected: true},
     ],
     ...userDetails
   }
