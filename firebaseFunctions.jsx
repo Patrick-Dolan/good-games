@@ -23,9 +23,6 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage
 import { auth } from "./firebase";
 import { updateProfile } from "firebase/auth";
 
-// UUID
-import { v4 as uuidv4 } from "uuid";
-
 // ==================== Firestore Functions ====================
 
 // ====== User Functions ======
