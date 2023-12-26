@@ -35,7 +35,7 @@ function ShelfAddCardList({ shelves, game, handleUpdateCurrentUserState, handleO
           <div className="shelf__card--main-row">
             <div>
               <p className="shelf__card--main-text">{shelf.name} ({shelf.games.length})</p>
-              {shelf.games.find(gameInShelf => gameInShelf.name === game.name) && (<p className="shelf__card--subtext">(Game is already in shelf)</p>)}
+              {shelf.games.find(gameInShelf => gameInShelf.name === game.name) && (<p className="shelf__card--subtext">(Game on shelf)</p>)}
             </div>
             <button onClick={() => handleAddToShelfClick(shelf)}>
               <AddIcon height="28" width="28" />
