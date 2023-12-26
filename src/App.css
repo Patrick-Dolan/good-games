@@ -671,3 +671,26 @@ button:focus-visible {
   margin: 0;
   opacity: .60;
 }
+
+/* Tabs */
+
+.tabs__button-container {
+  display: flex;
+  border-bottom: 1px var(--surface-border-color) solid;
+}
+
+.tabs__button {
+  background-color: inherit;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 1em;
+}
+
+.tabs__button:disabled {
+  color: var(--primary-color);
+  border-bottom: 1px var(--primary-color) solid;
+}
+
+.tabs__content {
+  margin: 1em 0;
+}
