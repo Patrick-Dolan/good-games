@@ -23,6 +23,9 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage
 import { auth } from "./firebase";
 import { updateProfile } from "firebase/auth";
 
+// UUID
+import { v4 as uuidv4 } from "uuid";
+
 // ==================== Firestore Functions ====================
 
 // ====== User Functions ======
@@ -35,9 +38,10 @@ export const updateUserDBEntry = async (user, userDetails) => {
   const updatedUser = {
     createdAt: user?.createdAt || serverTimestamp(),
     shelves: user?.shelves || [
-      {name: "Playing", games: [], protected: true},
-      {name: "Completed", games: [], protected: true},
-      {name: "Want to play", games: [], protected: true},
+      {name: "Playing", games: [], protected: true, id: uuidv4()},
+      {name: "Completed", games: [], protected: true, id: uuidv4()},
+      {name: "Want to play", games: [], protected: true, id: uuidv4()},
+      {name: "Favorites", games: [], protected: true, id: uuidv4()},
     ],
     ...userDetails
   }
