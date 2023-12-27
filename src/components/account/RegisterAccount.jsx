@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import Surface from "../layout/Surface";
-import { isUsernameValid, updateUserDBEntry, checkUsernameAvailability } from "../../../firebaseFunctions";
+import { isUsernameValid, updateUserDBEntry } from "../../../firebaseFunctions";
 
 function RegisterAccount() {
   const { registerUser, updateUsername } = useFirebaseAuth();
