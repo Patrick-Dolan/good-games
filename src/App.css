@@ -80,6 +80,10 @@ a:focus-visible {
   opacity: 0.75;
 }
 
+.error-button {
+  background-color: var(--error-color);
+}
+
 a {
   color: var(--primary-color);
 }

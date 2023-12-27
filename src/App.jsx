@@ -31,6 +31,12 @@ function App() {
     setToastMessage("You must be logged in to view this page.");
   }
 
+  const handleToast = (type, message) => {
+    setToastType(type);
+    setToastMessage(message);
+    setShowToast(true);
+  }
+
   return (
     <>
       <NavBar />
@@ -38,7 +44,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="my-games" element={<MyGamesPage />} />
         <Route path="games/:gameId" element={<GamesPage />} />
-        <Route path="shelves/:shelfId" element={<ShelfPage />} />
+        <Route path="shelves/:shelfId" element={<ShelfPage handleToast={handleToast} />} />
         <Route path="discover" element={<DiscoveryPage />} />
         <Route path="account" element={
             <ProtectedRoute handleUnauthorizedAccess={handleUnauthorizedAccess}>
