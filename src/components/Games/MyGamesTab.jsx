@@ -7,7 +7,7 @@ function MyGamesTab({ shelves }) {
 
   const combineAndFilterGamesFromShelves = () => {
     const combinedGames = [];
-    shelves.forEach((shelf) => {
+    shelves?.forEach((shelf) => {
       shelf.games.forEach((game) => {
         combinedGames.push(game);
       });
