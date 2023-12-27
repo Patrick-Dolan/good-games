@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import { updateUserDBEntry } from "../../../firebaseFunctions";
 
@@ -15,15 +15,10 @@ function ShelfEditForm({ handleCloseModal, shelf, handleToast, shelfOwner, handl
     }));
   }
 
-  useEffect(() => {
-    console.log(editForm);
-  }, [editForm]);
-
   const handleEditShelf = async (e) => {
     e.preventDefault();
     setErrorMessage("");
     try {
-      // throw new Error("Shelf editing is currently disabled.");
       if (shelf.protected) {
         throw new Error("Cannot edit protected shelf.");
       }
