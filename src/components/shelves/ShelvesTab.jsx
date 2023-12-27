@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFirebaseAuth } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 import Toast from "../dialogs/Toast";
 import Modal from "../dialogs/Modal";
 import ShelfDetailsCard from "./ShelfDetailsCard";
@@ -48,7 +49,13 @@ function ShelvesTab() {
       {user?.shelves 
         ? (
           orderedShelves.map((shelf) => 
-            <ShelfDetailsCard shelf={shelf} key={shelf.id} />
+            <Link 
+              to={`/shelves/${shelf.id}`} 
+              key={shelf.id} 
+              className="shelf__details-card--link"
+            >
+              <ShelfDetailsCard shelf={shelf} />
+            </Link>
           )
         )
         : (
