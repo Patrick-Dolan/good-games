@@ -131,6 +131,22 @@ h1, h2, h3, h4, h5 {
   margin: 0 auto;
 }
 
+.loading-image {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.loading-image--medium {
+  max-width: 7em;
+  max-height: 7em;
+}
+
+.loading-image--small {
+  max-width: 3em;
+  max-height: 3em;
+}
+
 /* Modals */
 
 .modal {
@@ -456,6 +472,49 @@ button:focus-visible {
   width: 10em;
 }
 
+.profile-picture--small-round {
+  width: 2.5em;
+  border-radius: 50%;
+}
+
+.profile-picture--loading {
+  margin-left: 0;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  font-size: .85rem;
+  font-weight: 500;
+  gap: .85em;
+  padding: .25em .75em;
+  border: 1px var(--surface-border-color) solid;
+}
+
+.profile-card:hover,
+.profile-card:focus-visible {
+  border: 1px var(--primary-color-dark) solid;
+}
+
+.profile-card--label {
+  font-size: .85rem;
+  margin-bottom: .5rem;
+}
+
+.profile-card--description {
+  margin-top: 0;
+}
+
+.profile-card--link {
+  text-decoration: none;
+}
+
+.profile-card--link:visited,
+.profile-card--link:focus-visible {
+  color: var(--text-white);
+  border: 1px var(--primary-color-dark) solid;
+}
+
 /* Account */
 
 .account-details-row {
@@ -674,6 +733,10 @@ button:focus-visible {
 
 .shelf__details-card {
   margin-bottom: .75em;
+}
+
+.shelf__details-card--link {
+  text-decoration: none;
 }
 
 .shelf__details-card--overlay {

@@ -63,6 +63,20 @@ export const getUserData = async (userId) => {
   }
 }
 
+export const getUserDataByShelfId = async (shelfId) => {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  let user = null;
+  querySnapshot.forEach((doc) => {
+    const userData = doc.data();
+    const shelfExists = userData.shelves.some((shelf) => shelf.id === shelfId);
+    if (shelfExists) {
+      user = userData;
+      return;
+    }
+  });
+  return user;
+}
+
 // Check username availability
 export const checkUsernameAvailability = async (newUsername) => {
   if (!newUsername) { throw new Error("Error checking username availability: newUsername undefined."); }
