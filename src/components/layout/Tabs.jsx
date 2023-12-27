@@ -22,7 +22,7 @@ function Tabs() {
       currentTabComponent = <ShelvesTab shelves={user?.shelves} />;
       break;
     default:
-      <p className="text-center">Error showing tab.</p>
+      currentTabComponent = <p className="text-center">Error showing tab.</p>
   }
 
   return (
