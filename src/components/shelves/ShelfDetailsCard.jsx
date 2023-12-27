@@ -5,7 +5,6 @@ function ShelfDetailsCard({ shelf }) {
   return (
     <div 
       className="shelf__details-card" 
-      onClick={() => console.log(shelf.name + " clicked")}
       style={{
         backgroundImage: `url(${randomGame?.backgroundImage})`, 
         objectFit: "cover", 
