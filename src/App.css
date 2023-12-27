@@ -672,6 +672,26 @@ button:focus-visible {
   opacity: .60;
 }
 
+.shelf__details-card {
+  margin-bottom: .75em;
+}
+
+.shelf__details-card--overlay {
+  background-color: var(--transparent-black);
+  color: var(--text-white);
+  border: 1px var(--transparent-black) solid;
+  padding: 1em;
+}
+
+.shelf__details-card p {
+  margin: .75em 0 0 0;
+}
+
+.shelf__details-card--overlay:hover,
+.shelf__details-card--overlay:focus-visible {
+  border: 1px var(--primary-color-dark) solid;
+}
+
 /* Tabs */
 
 .tabs__button-container {
