@@ -25,7 +25,7 @@ function ShelfEditForm({ handleCloseModal, shelf, handleToast, shelfOwner, handl
       if (shelfOwner?.uid !== user?.uid) {
         throw new Error("User does not have permission to edit shelf.");
       }
-      if (editForm.name === shelf.name && editForm.description === shelf.description) {
+      if (editForm.name.trim() === shelf.name.trim() && editForm.description.trim() === shelf.description.trim()) {
         throw new Error("No changes detected.");
       }
       const updatedShelves = {shelves: user.shelves.map(shelf => shelf.id === editForm.id ? editForm : shelf)};
@@ -48,7 +48,7 @@ function ShelfEditForm({ handleCloseModal, shelf, handleToast, shelfOwner, handl
           placeholder="My Shelf"
           id="name"
           name="name"
-          defaultValue={shelf.name}
+          defaultValue={shelf.name.trim()}
           onChange={handleInputChange}
         />
       </div>
@@ -59,7 +59,7 @@ function ShelfEditForm({ handleCloseModal, shelf, handleToast, shelfOwner, handl
           placeholder="A shelf for my games"
           id="description"
           name="description"
-          defaultValue={shelf?.description ? shelf.description : ""}
+          defaultValue={shelf?.description ? shelf.description.trim() : ""}
           onChange={handleInputChange}
         />
       </div>
