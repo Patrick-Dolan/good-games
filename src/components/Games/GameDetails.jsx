@@ -39,6 +39,8 @@ function GameDetails({ game, openModal }) {
       </>;
   }
 
+  // TODO add indicators of if game is on user's shelf and which shelf(s) it is on
+
   return (
     <div>
       <ImageSlider images={game.screenshots} />
