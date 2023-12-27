@@ -14,6 +14,8 @@ import Surface from "../layout/Surface"
 //   Use showModal to conditionally render modal.
 // ==========================================================================================
 
+// TODO add open prop to conditionally render modal like Toast component.
+
 function Modal({children, title, closeModal}) {
   return (
     <>
