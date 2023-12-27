@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LoadingAnimation from "../../assets/LoadingAnimation";
 
-function Image({ url, image, classes, alt, styleObj }) {
+function Image({ url, image, classes, loadClasses, alt, styleObj }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -18,7 +18,7 @@ function Image({ url, image, classes, alt, styleObj }) {
 
   return (
     <>
-      {isLoading && <LoadingAnimation />}
+      {isLoading && <LoadingAnimation classes={loadClasses} />}
       {isError ? (
         <div className="text-center">Error loading image</div>
       ) : (

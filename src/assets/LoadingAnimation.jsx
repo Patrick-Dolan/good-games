@@ -7,12 +7,11 @@ const LoadingAnimation = ({classes}) => {
       height={200}
       preserveAspectRatio="xMidYMid"
       style={{
-        margin: "auto",
         background: "0 0",
         display: "block",
         shapeRendering: "auto",
       }}
-      className={classes}
+      className={"loading-image " + classes}
       viewBox="0 0 100 100"
     >
       <circle

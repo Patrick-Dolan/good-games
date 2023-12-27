@@ -39,6 +39,7 @@ function ProfilePage() {
                 image={DefaultPFP}
                 classes="profile-picture margin-center"
                 alt="A user profile picture or default if it hasn't been assigned"
+                loadClasses="loading-image--medium"
               />
               <p className="text-center">@{userProfileData?.displayName}</p>
               <hr />
