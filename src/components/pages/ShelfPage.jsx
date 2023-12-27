@@ -1,23 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { getUserDataByShelfId, updateUserDBEntry } from "../../../firebaseFunctions";
+import { getUserDataByShelfId } from "../../../firebaseFunctions";
 import { useFirebaseAuth } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "../../assets/LoadingAnimation";
 import Surface from "../layout/Surface";
 import GameListItem from "../Games/GameListItem";
 import Image from "../image-manipulation/Image";
 import Modal from "../dialogs/Modal";
+import ShelfEditForm from "../shelves/ShelfEditForm";
+import ShelfDeleteForm from "../shelves/ShelfDeleteForm";
 
 function ShelfPage({ handleToast }) {
   const { shelfId } = useParams();
   const { user, setUser } = useFirebaseAuth();
-  const navigate = useNavigate();
   const [shelfOwner, setShelfOwner] = useState(null);
   const [shelf, setShelf] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,29 +34,25 @@ function ShelfPage({ handleToast }) {
     fetchUser();
   }, []);
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleUpdateShelvesState = (updatedShelves, currentShelf) => {
+    setUser(prev => ({
+      ...prev,
+      ...updatedShelves
+    }));
+    setShelf(currentShelf);
   }
 
-  const handleDeleteShelf = async () => {
-    try {
-      if (user?.uid !== shelfOwner?.uid) {
-        throw new Error("User does not have permission to delete shelf.");
-      }
-      if (shelf?.protected) {
-        throw new Error("Cannot delete protected shelf.");
-      }
-      const updatedShelves = {shelves: user.shelves.filter(shelf => shelf.id !== shelfId)};
-      await updateUserDBEntry(user, updatedShelves);
-      setUser(prev => ({
-        ...prev,
-        ...updatedShelves
-      }));
-      handleToast("success", "Shelf deleted.");
-      navigate("/my-games");
-    } catch (e) {
-      handleToast("error", e.message);
-    }
+  const handleEditShelfModal = () => {
+    setEdit(true);
+    setShowModal(true);
+  }
+
+  const handleDeleteShelfModal = async () => {
+    setEdit(false);
+    setShowModal(true);
+  }
+
+  const handleCloseModal = () => {
     setShowModal(false);
   }
 
@@ -65,7 +62,7 @@ function ShelfPage({ handleToast }) {
         ? (
           <Surface>
             <h1 className="mb-1r">{shelf.name}</h1>
-            <p className="profile-card--label">Shelf created by:</p>
+            <p className="profile-card--label">{!shelf.protected ? "Shelf created by:" : "Shelf owner:"}</p>
             <Link to={`/user/${shelfOwner.uid}`} className="profile-card--link">
               <div className="profile-card mb-1r">
                 <Image
@@ -76,13 +73,20 @@ function ShelfPage({ handleToast }) {
                 <p>@{shelfOwner.displayName}</p>
               </div>
             </Link>
-            <p className="profile-card--label">Description:</p>
-            <p className="profile-card--description">{shelf?.description ? shelf.description : "No description available."}</p>
+            {!shelf.protected && (
+              <>
+                <p className="profile-card--label">Description:</p>
+                <p className="profile-card--description">{shelf?.description ? shelf.description : "No description available."}</p>
+              </>
+            )}
             <hr />
-            {user?.uid === shelfOwner?.uid 
+            {user?.uid === shelfOwner?.uid && !shelf.protected
               && (
                 <>
-                  <button className="margin-center" onClick={() => setShowModal(true)}>Delete shelf</button>
+                  <div className="row">
+                    <button className="margin-center" onClick={handleEditShelfModal}>Edit shelf</button>
+                    <button className="margin-center error-button" onClick={handleDeleteShelfModal}>Delete shelf</button>
+                  </div>
                   <hr />
                 </>
               )
@@ -108,15 +112,29 @@ function ShelfPage({ handleToast }) {
       }
       {showModal && 
         <Modal
-          title="Delete shelf..."
+          title={edit ? "Edit shelf..." : "Delete shelf..."}
           closeModal={handleCloseModal}
         >
-          <p>Are you sure you want to delete this shelf?</p>
-          <p>Once the shelf has been deleted it cannot be recovered.</p>
-          <div className="row">
-            <button onClick={handleCloseModal}>Cancel</button>
-            <button className="error-button" onClick={handleDeleteShelf}>Delete</button>
-          </div>
+          {edit
+            ? (
+              <ShelfEditForm 
+                handleCloseModal={handleCloseModal} 
+                handleToast={handleToast}
+                shelf={shelf}
+                shelfOwner={shelfOwner}
+                handleUpdateShelvesState={handleUpdateShelvesState}
+              />
+            )
+            : (
+              <ShelfDeleteForm 
+                handleCloseModal={handleCloseModal} 
+                handleToast={handleToast} 
+                shelf={shelf} 
+                shelfOwner={shelfOwner} 
+                handleUpdateShelvesState={handleUpdateShelvesState}
+              />
+            )
+          }
         </Modal>
       }
     </div>
