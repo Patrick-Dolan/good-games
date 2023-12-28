@@ -19,11 +19,7 @@ function ShelfEditForm({ handleCloseModal, shelf, handleToast, shelfOwner, handl
 
   const handleRemoveGame = async (gameId) => {
     setErrorMessage("");
-    console.log("remove game", gameId)
     try {
-      if (shelf.protected) {
-        throw new Error("Cannot edit protected shelf.");
-      }
       if (shelfOwner?.uid !== user?.uid) {
         throw new Error("User does not have permission to edit shelf.");
       }
