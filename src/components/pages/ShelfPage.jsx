@@ -80,12 +80,12 @@ function ShelfPage({ handleToast }) {
               </>
             )}
             <hr />
-            {user?.uid === shelfOwner?.uid && !shelf.protected
+            {user?.uid === shelfOwner?.uid
               && (
                 <>
                   <div className="row">
                     <button className="margin-center" onClick={handleEditShelfModal}>Edit shelf</button>
-                    <button className="margin-center error-button" onClick={handleDeleteShelfModal}>Delete shelf</button>
+                    {!shelf.protected && <button className="margin-center error-button" onClick={handleDeleteShelfModal}>Delete shelf</button>}
                   </div>
                   <hr />
                 </>

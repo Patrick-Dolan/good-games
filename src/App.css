@@ -151,6 +151,10 @@ h1, h2, h3, h4, h5 {
   max-height: 3em;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 /* Modals */
 
 .modal {
@@ -546,6 +550,7 @@ button:focus-visible {
   margin-bottom: .25em;
   background-color: var(--surface-elevation1-bg-color);
   border: 1px var(--surface-border-color) solid;
+  flex-grow: 1;
 }
 
 .game-list__item:hover,
@@ -757,6 +762,10 @@ button:focus-visible {
 .shelf__details-card--overlay:hover,
 .shelf__details-card--overlay:focus-visible {
   border: 1px var(--primary-color-dark) solid;
+}
+
+.shelf__edit-delete--button {
+  padding: 0;
 }
 
 /* Tabs */

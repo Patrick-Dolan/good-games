@@ -12,6 +12,9 @@ import CloseIcon from "../../assets/CloseIcon";
 //   }
 // ==========================================================================================
 
+// TODO refactor to be a bit more low profile on the UI
+// TODO make it so toast is using a flex with the close icon on one side in the center and the message on the other side in the center
+
 function Toast({ show, onCloseToast, message, type }) {
   const [toastTypeClasses, setToastTypeClasses] = useState("");
 
